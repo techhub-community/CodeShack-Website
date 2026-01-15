@@ -9,6 +9,7 @@
   max-width: 100%;
   padding: 2rem 1rem;
   box-sizing: border-box;
+  overflow: hidden;
 
   --x: 50%;
   --y: 50%;
