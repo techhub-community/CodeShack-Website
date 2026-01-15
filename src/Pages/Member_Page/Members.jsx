@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Team from "../../assets/Team.jpg";
 import { useNavigate } from "react-router-dom";
-import ChromaGrid from "../../assets/ChromaGrid";
+import { ChromaGrid } from "../../assets/ChromaGrid";
 import { members } from "../../data/members";
 
 export const Members = () => {
