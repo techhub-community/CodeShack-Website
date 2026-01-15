@@ -17,6 +17,7 @@ export const ChromaGrid = ({
   const setX = useRef(null);
   const setY = useRef(null);
   const pos = useRef({ x: 0, y: 0 });
+  const dynamicRadius = useRef(radius);
 
   const demo = [
     {
@@ -79,13 +80,26 @@ export const ChromaGrid = ({
   useEffect(() => {
     const el = rootRef.current;
     if (!el) return;
-    setX.current = gsap.quickSetter(el, "--x", "px");
-    setY.current = gsap.quickSetter(el, "--y", "px");
-    const { width, height } = el.getBoundingClientRect();
-    pos.current = { x: width / 2, y: height / 2 };
-    setX.current(pos.current.x);
-    setY.current(pos.current.y);
-  }, []);
+
+    const updateMetrics = () => {
+      const { width, height } = el.getBoundingClientRect();
+
+      // radius adapts to container width
+      dynamicRadius.current = Math.min(radius, width * 0.35);
+
+      setX.current = gsap.quickSetter(el, "--x", "px");
+      setY.current = gsap.quickSetter(el, "--y", "px");
+
+      pos.current = { x: width / 2, y: height / 2 };
+      setX.current(pos.current.x);
+      setY.current(pos.current.y);
+    };
+
+    updateMetrics();
+    window.addEventListener("resize", updateMetrics);
+
+    return () => window.removeEventListener("resize", updateMetrics);
+  }, [radius]);
 
   const moveTo = (x, y) => {
     gsap.to(pos.current, {
@@ -106,8 +120,9 @@ export const ChromaGrid = ({
     if (!el) return;
 
     const r = el.getBoundingClientRect();
+    const safeRadius = dynamicRadius.current;
 
-    const padding = radius * 0.6; // safety margin
+    const padding = safeRadius * 0.7;
 
     const rawX = e.clientX - r.left;
     const rawY = e.clientY - r.top;
@@ -153,7 +168,7 @@ export const ChromaGrid = ({
       ref={rootRef}
       className={`chroma-grid ${className}`}
       style={{
-        "--r": `${radius}px`,
+        "--r": `${dynamicRadius.current}px`,
         "--cols": columns,
         "--rows": rows,
         maxWidth: "100%",
