@@ -68,18 +68,12 @@ export const Members = () => {
       {/* GRID */}
       <div
         ref={gridContainerRef}
+        className="relative overflow-x-hidden"
         style={{
           minHeight: gridHeight === "auto" ? "500px" : gridHeight,
-          position: "relative",
         }}
       >
-        <ChromaGrid
-          items={items}
-          radius={300}
-          damping={0.45}
-          fadeOut={0.6}
-          ease="power3.out"
-        />
+        <ChromaGrid items={items} radius={300} damping={0.45} fadeOut={0.6} />
       </div>
     </div>
   );
