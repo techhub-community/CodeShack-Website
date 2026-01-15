@@ -52,7 +52,7 @@ export const Members = () => {
   }, [items.length]);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-tech-grid text-white overflow-x-clip">
       {/* HERO */}
       <div className="relative overflow-hidden h-64 sm:h-80 md:h-150">
         <img src={Team} alt="" className="w-full h-full object-cover" />
@@ -73,7 +73,7 @@ export const Members = () => {
           minHeight: gridHeight === "auto" ? "500px" : gridHeight,
         }}
       >
-        <ChromaGrid items={items} radius={300} damping={0.45} fadeOut={0.6} />
+        <ChromaGrid items={items} radius={260} damping={0.45} fadeOut={0.6} />
       </div>
     </div>
   );
