@@ -7,15 +7,11 @@ import { Event } from "./Event_Section/Event";
 export const Home = () => {
   return (
     <>
-      
-
       <LandingLayout>
-      <Hero />
-      <About />
-      <Event />
-    
-    </LandingLayout>
-      
+        <Hero />
+        <About />
+        <Event />
+      </LandingLayout>
     </>
   );
 };

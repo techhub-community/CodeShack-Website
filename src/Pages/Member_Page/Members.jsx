@@ -17,12 +17,10 @@ export const Members = () => {
   const items = members.map((member) => ({
     image: member.image,
     title: member.name,
-    subtitle: member.role,
     handle: member.handle,
     borderColor: member.borderColor,
     gradient: member.gradient,
-    url: `/members/${member.slug}`,
-    onClick: () => navigate(`/members/${member.slug}`),
+    url: member.url,
   }));
 
   // Measure actual grid height after render
