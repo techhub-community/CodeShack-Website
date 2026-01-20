@@ -2,7 +2,10 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useNavigate } from "react-router-dom";
-
+import HacknocturneImg from "../../../assets/Hacknocturne.jpeg";
+import csocImg from "../../../assets/csoc.jpeg";
+import techvistaraImg from "../../../assets/Techvistara.jpg";
+import codecafeImg from "../../../assets/CodeCafe.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
 export const Event = () => {
@@ -15,7 +18,7 @@ export const Event = () => {
       slug: "hacknocturne",
       name: "HackNocturne",
       number: 0,
-      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
+      image: HacknocturneImg,
       description:
         "HackNocturne is CodeShack's flagship annual inter-college hackathon where students participate in a 24-hour non-stop coding challenge.",
       buttonText: "VIEW DETAILS"
@@ -25,7 +28,7 @@ export const Event = () => {
       slug: "tech-vistara",
       name: "Tech Vistara",
       number: 1,
-      image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80",
+      image: techvistaraImg,
       description:
         "Orientation program designed to introduce freshers to tech culture.",
       buttonText: "LEARN MORE"
@@ -35,7 +38,7 @@ export const Event = () => {
       slug: "codecafe",
       name: "CodeCafe",
       number: 2,
-      image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80",
+      image: codecafeImg,
       description:
         "Webinar and talk series on technology, placements, and careers.",
       buttonText: "EXPLORE"
@@ -45,7 +48,7 @@ export const Event = () => {
       slug: "csoc",
       name: "CSoC (CodeShack Summer of Code)",
       number: 3,
-      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80",
+      image: csocImg,
       description:
         "A structured summer learning program focused on real-world skills.",
       buttonText: "JOIN NOW"
@@ -53,106 +56,106 @@ export const Event = () => {
   ];
 
   useEffect(() => {
-  cardsRef.current.forEach((card, index) => {
-    if (!card) return;
+    cardsRef.current.forEach((card, index) => {
+      if (!card) return;
 
-    const numberEl = card.querySelector(".event-number");
-    const glowEl = card.querySelector(".event-glow");
+      const numberEl = card.querySelector(".event-number");
+      const glowEl = card.querySelector(".event-glow");
 
-    const valueObj = { value: 0 };
-    const targetValue = events[index].number;
+      const valueObj = { value: 0 };
+      const targetValue = events[index].number;
 
-    /* Timeline (paused by default) */
-    const tl = gsap.timeline({ paused: true });
+      /* Timeline (paused by default) */
+      const tl = gsap.timeline({ paused: true });
 
-    /* Card animation */
-    tl.fromTo(
-      card,
-      { opacity: 0, y: 80 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power3.out"
-      },
-      0
-    );
+      /* Card animation */
+      tl.fromTo(
+        card,
+        { opacity: 0, y: 80 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out"
+        },
+        0
+      );
 
-    /* Glow animation */
-    tl.fromTo(
-      glowEl,
-      { opacity: 0, scale: 0.6 },
-      {
-        opacity: 0.8,
-        scale: 1.2,
-        duration: 0.6,
-        ease: "power2.out"
-      },
-      0.1
-    );
+      /* Glow animation */
+      tl.fromTo(
+        glowEl,
+        { opacity: 0, scale: 0.6 },
+        {
+          opacity: 0.8,
+          scale: 1.2,
+          duration: 0.6,
+          ease: "power2.out"
+        },
+        0.1
+      );
 
-    tl.to(
-      glowEl,
-      {
-        opacity: 0.25,
-        scale: 1,
-        duration: 0.6,
-        ease: "power2.out"
-      },
-      0.8
-    );
+      tl.to(
+        glowEl,
+        {
+          opacity: 0.25,
+          scale: 1,
+          duration: 0.6,
+          ease: "power2.out"
+        },
+        0.8
+      );
 
-    /* Number animation */
-    tl.to(
-      valueObj,
-      {
-        value: targetValue,
-        duration: 1.2,
-        ease: "power2.out",
-        snap: { value: 1 },
-        onUpdate: () => {
-          numberEl.textContent = String(valueObj.value).padStart(2, "0");
+      /* Number animation */
+      tl.to(
+        valueObj,
+        {
+          value: targetValue,
+          duration: 1.2,
+          ease: "power2.out",
+          snap: { value: 1 },
+          onUpdate: () => {
+            numberEl.textContent = String(valueObj.value).padStart(2, "0");
+          }
+        },
+        0
+      );
+
+      /* ScrollTrigger */
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top 80%",
+
+        onEnter: () => {
+          tl.restart();
+        },
+
+        onLeaveBack: () => {
+          // Fade out smoothly when scrolling up
+          gsap.to(card, {
+            opacity: 0,
+            y: 80,
+            duration: 0.5,
+            ease: "power2.in",
+            onComplete: () => {
+              // Reset everything AFTER fade-out
+              tl.pause(0);
+
+              valueObj.value = 0;
+              numberEl.textContent = "00";
+
+              gsap.set(glowEl, {
+                opacity: 0,
+                scale: 0.6
+              });
+            }
+          });
         }
-      },
-      0
-    );
+      });
 
-    /* ScrollTrigger */
-    ScrollTrigger.create({
-  trigger: card,
-  start: "top 80%",
-
-  onEnter: () => {
-    tl.restart();
-  },
-
-  onLeaveBack: () => {
-    // Fade out smoothly when scrolling up
-    gsap.to(card, {
-      opacity: 0,
-      y: 80,
-      duration: 0.5,
-      ease: "power2.in",
-      onComplete: () => {
-        // Reset everything AFTER fade-out
-        tl.pause(0);
-
-        valueObj.value = 0;
-        numberEl.textContent = "00";
-
-        gsap.set(glowEl, {
-          opacity: 0,
-          scale: 0.6
-        });
-      }
     });
-  }
-});
 
-  });
-
-  return () => ScrollTrigger.getAll().forEach(t => t.kill());
-}, []);
+    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+  }, []);
 
 
 
