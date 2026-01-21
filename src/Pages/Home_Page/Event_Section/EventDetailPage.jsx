@@ -21,9 +21,11 @@ import RosImg from "../../../assets/cybersecurity.png";
 import PersonalBrandingImg from "../../../assets/uiux.png";
 import VideoEditingImg from "../../../assets/aiml.png";
 import LaptopGuideImg from "../../../assets/laptopguide.png";
+import AppDevImg from "../../../assets/appdev.png";
+import GameDevImg from "../../../assets/gamedev.png";
 
 // Placeholder imports for CodeCafe episodes - replace with actual images
-import Episode1Img from "../../../assets/CodeCafe.jpg"; // Placeholder
+import Episode1Img from "../../../assets/codecafeep1.png";
 import Episode2Img from "../../../assets/codecafeep2.png";
 
 // Event Gallery Images for CodeCafe Episode 2
@@ -306,7 +308,8 @@ export const EventDetailPage = () => {
                 {/* Episode 1 */}
                 <div
                   ref={(el) => (episodeCardsRef.current[0] = el)}
-                  className="bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-2xl overflow-hidden hover:border-purple-600/50 transition-all duration-300"
+                  onClick={() => setSelectedEpisode(1)}
+                  className="bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-2xl overflow-hidden hover:border-purple-600/50 transition-all duration-300 cursor-pointer"
                 >
                   {/* Episode Image */}
                   <div className="relative h-48 overflow-hidden">
@@ -334,17 +337,17 @@ export const EventDetailPage = () => {
                       <p className="text-xs text-gray-500 mb-2">SPEAKER</p>
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full flex items-center justify-center text-white font-bold">
-                          RS
+                          SP
                         </div>
                         <div>
-                          <p className="text-white font-semibold">Rahul Sharma</p>
-                          <p className="text-gray-400 text-xs">Software Engineer @ Google</p>
+                          <p className="text-white font-semibold">Sumit Pathak</p>
+                          <p className="text-gray-400 text-xs">Software Engineer @ Tally Solutions Pvt. Ltd.</p>
                         </div>
                       </div>
                       <div className="mt-3 space-y-1">
                         <div className="flex items-center gap-2 text-xs text-gray-500">
                           <Calendar size={14} className="text-purple-500" />
-                          <span>Date: January 15, 2024</span>
+                          <span>Date: September 14, 2025</span>
                         </div>
                         <div className="flex items-center gap-2 text-xs text-gray-500">
                           <Clock size={14} className="text-purple-500" />
@@ -600,6 +603,66 @@ export const EventDetailPage = () => {
                         <h3 className="text-2xl font-bold text-white mb-3">Laptop Buying Guide</h3>
                         <p className="text-gray-400 text-sm md:text-base leading-relaxed">
                           Make informed decisions when purchasing a laptop for engineering and development. Learn about specs, performance requirements, and budget-friendly options.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 7. App Development - Left Content, Right Image */}
+                  <div
+                    ref={(el) => (domainItemsRef.current[6] = el)}
+                    className="relative grid md:grid-cols-2 gap-8 items-center"
+                  >
+                    {/* Content Left */}
+                    <div className="md:text-right order-2 md:order-1">
+                      <div className="border border-gray-700 rounded-2xl p-6 md:mr-8 bg-black/20">
+                        <h3 className="text-2xl font-bold text-white mb-3">App Development</h3>
+                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+                          Create powerful mobile applications for Android and iOS. Learn native development or cross-platform frameworks like React Native and Flutter.
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Center Dot */}
+                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-black hidden md:block z-10"></div>
+
+                    {/* Image Right */}
+                    <div className="order-1 md:order-2">
+                      <div className="overflow-hidden rounded-2xl border border-gray-700 shadow-xl md:ml-8">
+                        <img
+                          src={AppDevImg}
+                          alt="App Development"
+                          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-110"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 8. Game Development - Right Content, Left Image */}
+                  <div
+                    ref={(el) => (domainItemsRef.current[7] = el)}
+                    className="relative grid md:grid-cols-2 gap-8 items-center"
+                  >
+                    {/* Image Left */}
+                    <div className="order-1">
+                      <div className="overflow-hidden rounded-2xl border border-gray-700 shadow-xl md:mr-8">
+                        <img
+                          src={GameDevImg}
+                          alt="Game Development"
+                          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-110"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Center Dot */}
+                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-black hidden md:block z-10"></div>
+
+                    {/* Content Right */}
+                    <div className="md:text-left order-2">
+                      <div className="border border-gray-700 rounded-2xl p-6 md:ml-8 bg-black/20">
+                        <h3 className="text-2xl font-bold text-white mb-3">Game Development</h3>
+                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+                          Dive into the world of game creation. Learn about game engines like Unity and Unreal, game physics, scripting, and 3D modeling to build immersive gaming experiences.
                         </p>
                       </div>
                     </div>
@@ -896,7 +959,146 @@ export const EventDetailPage = () => {
           )}
         </div>
 
-        {/* Episode Modal */}
+        {/* Episode 1 Modal */}
+        {selectedEpisode === 1 && (
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+            <div className="bg-black/40 backdrop-blur-xl border border-purple-400/20 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto my-8 custom-scrollbar">
+              {/* Modal Header */}
+              <div className="sticky top-0 bg-purple-900/30 backdrop-blur-md border-b border-purple-400/20 p-6 flex justify-between items-start z-10">
+                <div>
+                  <div className="bg-white/10 text-white px-3 py-1 rounded-full font-bold text-xs inline-block mb-2">
+                    EP-01
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white">
+                    Breaking Into Tech: A Freshman's Guide
+                  </h2>
+                  <div className="flex items-center gap-4 mt-3 text-sm text-white/90">
+                    <div className="flex items-center gap-2">
+                      <Calendar size={16} />
+                      <span>September 14, 2025</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock size={16} />
+                      <span>1.5 hours</span>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setSelectedEpisode(null)}
+                  className="bg-white/10 hover:bg-white/20 text-white p-2 rounded-full transition-colors"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6 md:p-8 space-y-8">
+                {/* Speaker Info */}
+                <div className="bg-white/5 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6">
+                  <p className="text-xs text-gray-400 mb-3 uppercase tracking-wider">Featured Speaker</p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500/80 to-purple-600/80 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                      SP
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-white">Sumit Pathak</h3>
+                      <p className="text-purple-300">Software Engineer @ Tally Solutions Pvt. Ltd.</p>
+                      <p className="text-gray-400 text-sm mt-1">Alumnus & Experienced Engineer</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Event Overview */}
+                <div className="prose prose-invert max-w-none">
+                  <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                    <FileText className="text-purple-400" size={24} /> Event Overview
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed">
+                    The session featured Sumit Pathak, an alumnus and Software Engineer at Tally Solutions.
+                    The talk focused on essential topics for placements, including Data Structures & Algorithms (DSA),
+                    core concepts, and the distinction between product-based and service-based companies.
+                  </p>
+                </div>
+
+                {/* Key Themes Section */}
+                <div className="space-y-6">
+                  <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                    <Key className="text-purple-400" size={24} /> Key Themes & Insights
+                  </h3>
+
+                  {/* Theme 1 */}
+                  <div className="bg-white/5 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6">
+                    <h4 className="text-xl font-bold text-purple-300 mb-4">
+                      1. Placement Fundamentals
+                    </h4>
+                    <div className="space-y-3 text-gray-300">
+                      <div className="flex gap-3">
+                        <span className="text-purple-500 mt-1">•</span>
+                        <div>
+                          <strong className="text-white">Data Structures & Algorithms (DSA):</strong> The backbone of technical interviews at top product companies.
+                          Focus on arrays, linked lists, trees, graphs, and dynamic programming.
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <span className="text-purple-500 mt-1">•</span>
+                        <div>
+                          <strong className="text-white">Core Computer Science Subjects:</strong> Strong grasp of Operating Systems (OS),
+                          Database Management Systems (DBMS), and Computer Networks (CN) is crucial for interviews.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Theme 2 */}
+                  <div className="bg-white/5 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6">
+                    <h4 className="text-xl font-bold text-purple-300 mb-4">
+                      2. Company Landscape
+                    </h4>
+                    <div className="space-y-3 text-gray-300">
+                      <div className="flex gap-3">
+                        <span className="text-purple-400 mt-1">•</span>
+                        <div>
+                          <strong className="text-white">Product-Based Companies:</strong> Companies like Google, Amazon, Microsoft that build their own products.
+                          Interviews focus heavily on DSA, problem-solving, and system design.
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <span className="text-purple-400 mt-1">•</span>
+                        <div>
+                          <strong className="text-white">Service-Based Companies:</strong> Companies like TCS, Infosys, Wipro that provide services to other clients.
+                          Interviews often focus on aptitude, communication skills, and basic technical knowledge.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Theme 3 */}
+                  <div className="bg-white/5 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6">
+                    <h4 className="text-xl font-bold text-purple-300 mb-4">
+                      3. Preparation Strategy
+                    </h4>
+                    <div className="space-y-3 text-gray-300">
+                      <div className="flex gap-3">
+                        <span className="text-purple-300 mt-1">•</span>
+                        <div>
+                          <strong className="text-white">Consistency is Key:</strong> Solve coding problems daily on platforms like LeetCode or GeeksforGeeks.
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <span className="text-purple-300 mt-1">•</span>
+                        <div>
+                          <strong className="text-white">Projects:</strong> Build good projects (Web/App/ML) to showcase your practical skills on your resume.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Episode 2 Modal */}
         {selectedEpisode === 2 && (
           <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
             <div className="bg-black/40 backdrop-blur-xl border border-purple-400/20 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto my-8 custom-scrollbar">
