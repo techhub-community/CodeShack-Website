@@ -8,6 +8,7 @@ import { Contact } from "./Pages/Home_Page/Contact_Section/Contact";
 import { Members } from "./Pages/Member_Page/Members";
 import { Blog } from "./Pages/Blog_Page/Blog";
 import { BlogDetailPage } from "./Pages/Blog_Page/BlogDetailPage";
+import { Register } from "./Pages/Register_Page/Register";
 import "./App.css";
 
 function App() {
@@ -19,8 +20,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/event/:eventId" element={<EventDetailPage />} />
           <Route path="/members" element={<Members />} />
-          {/* <Route path="/blogs" element={<Blog />} />
+            {/* <Route path="/blogs" element={<Blog />} />
           <Route path="/blog/:blogId" element={<BlogDetailPage />} /> */}
+          <Route path="/register" element={<Register />} />
         </Routes>
         <Contact />
       </div>
