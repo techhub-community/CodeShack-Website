@@ -30,7 +30,7 @@ export const Blog = () => {
         );
 
   return (
-    <div className="min-h-screen text-white bg-tech-grid">
+    <div className="min-h-screen text-white">
       <div className="relative h-96 sm:h-[500px] md:h-[600px] mb-12 overflow-hidden rounded-2xl">
         <img src={Blogimg} alt={""} className="w-full h-full object-cover" />
 

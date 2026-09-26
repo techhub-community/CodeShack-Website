@@ -17,11 +17,11 @@ export const Navbar = () => {
          : "text-gray-400 hover:text-white after:w-0"
      }
      after:absolute after:left-0 after:-bottom-1 after:h-[2px]
-     after:bg-gradient-to-r after:from-purple-500 after:to-pink-500
+     after:bg-gradient-to-r after:from-orange-500 after:to-pink-500
      after:transition-all after:duration-300`;
 
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-md bg-black/70 border-b border-white/10">
+    <nav className="fixed w-full top-0 left-0 z-50 backdrop-blur-md bg-black/70 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
 
@@ -39,9 +39,9 @@ export const Navbar = () => {
               Members
             </Link>
 
-            <Link to="/blogs" className={navLinkClasses("/blogs")}>
+            {/* <Link to="/blogs" className={navLinkClasses("/blogs")}>
               Blogs
-            </Link>
+            </Link> */}
 
             <Link
               to="/register"

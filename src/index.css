@@ -1,13 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #000000;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,6 +18,12 @@ html,
 body {
   max-width: 100%;
   overflow-x: hidden;
+  min-height: auto;
+}
+
+/* Offset page content to account for fixed navbar (h-16 = 4rem) */
+body {
+  padding-top: 4rem;
 }
 
 .bg-tech-grid {
@@ -40,16 +45,16 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(167, 139, 250, 0.4), rgba(139, 92, 246, 0.4));
+  background: linear-gradient(180deg, rgba(255, 140, 0, 0.4), rgba(255, 165, 0, 0.4));
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(167, 139, 250, 0.6), rgba(139, 92, 246, 0.6));
+  background: linear-gradient(180deg, rgba(255, 140, 0, 0.6), rgba(255, 165, 0, 0.6));
 }
 
 /* Firefox scrollbar */
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: rgba(167, 139, 250, 0.4) rgba(0, 0, 0, 0.3);
+  scrollbar-color: rgba(255, 140, 0, 0.4) rgba(0, 0, 0, 0.3);
 }

@@ -50,7 +50,7 @@ export const Members = () => {
   }, [items.length]);
 
   return (
-    <div className="min-h-screen bg-tech-grid text-white overflow-x-clip">
+    <div className="min-h-screen  text-white overflow-x-clip">
       {/* HERO */}
       <div className="relative overflow-hidden h-64 sm:h-80 md:h-150">
         <img src={Team} alt="" className="w-full h-full object-cover" />
@@ -66,7 +66,7 @@ export const Members = () => {
       {/* GRID */}
       <div
         ref={gridContainerRef}
-        className="relative"
+        className="relative pb-16"
         style={{
           minHeight: gridHeight === "auto" ? "500px" : gridHeight,
         }}

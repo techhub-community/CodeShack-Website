@@ -1,6 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, ChevronLeft, ChevronRight, Calendar, Clock, X, FileText, Key, Camera } from "lucide-react";
+import {
+  ArrowLeft,
+  ChevronLeft,
+  ChevronRight,
+  Calendar,
+  Clock,
+  X,
+  FileText,
+  Key,
+  Camera,
+} from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HacknocturneImg from "../../../assets/Hacknocturne.jpeg";
@@ -48,13 +58,17 @@ export const EventDetailPage = () => {
 
   // Carousel state and auto-play
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const hacknocturneImages = [HacknocturneCat1, HacknocturneImg, HacknocturneCat2];
+  const hacknocturneImages = [
+    HacknocturneCat1,
+    HacknocturneImg,
+    HacknocturneCat2,
+  ];
 
   useEffect(() => {
     if (eventId === "hacknocturne") {
       const interval = setInterval(() => {
-        setCurrentImageIndex((prevIndex) =>
-          (prevIndex + 1) % hacknocturneImages.length
+        setCurrentImageIndex(
+          (prevIndex) => (prevIndex + 1) % hacknocturneImages.length,
         );
       }, 3000); // Change image every 3 seconds
 
@@ -77,8 +91,8 @@ export const EventDetailPage = () => {
             opacity: 1,
             y: 0,
             duration: 1,
-            ease: "power3.out"
-          }
+            ease: "power3.out",
+          },
         );
 
         ScrollTrigger.create({
@@ -95,13 +109,13 @@ export const EventDetailPage = () => {
               ease: "power2.in",
               onComplete: () => {
                 tl.pause(0);
-              }
+              },
             });
-          }
+          },
         });
       });
 
-      return () => ScrollTrigger.getAll().forEach(t => t.kill());
+      return () => ScrollTrigger.getAll().forEach((t) => t.kill());
     }
   }, [eventId]);
 
@@ -121,8 +135,8 @@ export const EventDetailPage = () => {
             scale: 1,
             y: 0,
             duration: 0.6,
-            ease: "back.out(1.2)"
-          }
+            ease: "back.out(1.2)",
+          },
         );
 
         ScrollTrigger.create({
@@ -140,13 +154,13 @@ export const EventDetailPage = () => {
               ease: "power2.in",
               onComplete: () => {
                 tl.pause(0);
-              }
+              },
             });
-          }
+          },
         });
       });
 
-      return () => ScrollTrigger.getAll().forEach(t => t.kill());
+      return () => ScrollTrigger.getAll().forEach((t) => t.kill());
     }
   }, [eventId]);
 
@@ -165,8 +179,8 @@ export const EventDetailPage = () => {
             opacity: 1,
             y: 0,
             duration: 0.8,
-            ease: "power3.out"
-          }
+            ease: "power3.out",
+          },
         );
 
         ScrollTrigger.create({
@@ -183,25 +197,25 @@ export const EventDetailPage = () => {
               ease: "power2.in",
               onComplete: () => {
                 tl.pause(0);
-              }
+              },
             });
-          }
+          },
         });
       });
 
-      return () => ScrollTrigger.getAll().forEach(t => t.kill());
+      return () => ScrollTrigger.getAll().forEach((t) => t.kill());
     }
   }, [eventId]);
 
   const nextImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      (prevIndex + 1) % hacknocturneImages.length
+    setCurrentImageIndex(
+      (prevIndex) => (prevIndex + 1) % hacknocturneImages.length,
     );
   };
 
   const prevImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? hacknocturneImages.length - 1 : prevIndex - 1
+      prevIndex === 0 ? hacknocturneImages.length - 1 : prevIndex - 1,
     );
   };
 
@@ -236,6 +250,108 @@ export const EventDetailPage = () => {
     },
   };
 
+  const DOMAINS_TV = [
+    {
+      title: "Data Structures & Algorithms",
+      description:
+        "Learn the fundamentals of DSA, essential for coding interviews and competitive programming. Master arrays, linked lists, trees, graphs, and algorithmic problem-solving techniques.",
+      image: DsaImg,
+    },
+    {
+      title: "Web Development",
+      description:
+        "Master modern web technologies including HTML5, CSS3, JavaScript, and React. Build responsive, interactive websites and web applications from scratch to deployment.",
+      image: WebDevImg,
+    },
+    {
+      title: "Cyber Security",
+      description:
+        "Protect systems and networks from digital attacks. Learn ethical hacking, cryptography, and security protocols.",
+      image: RosImg,
+    },
+    {
+      title: "UI/UX Design",
+      description:
+        "Design intuitive and beautiful user interfaces. Learn wireframing, prototyping, and user research.",
+      image: PersonalBrandingImg,
+    },
+    {
+      title: "AI & Machine Learning",
+      description:
+        "Explore machine learning algorithms, deep learning, and neural networks to build intelligent systems.",
+      image: VideoEditingImg,
+    },
+    {
+      title: "Laptop Buying Guide",
+      description:
+        "Learn how to choose the right laptop based on specs, performance, and budget.",
+      image: LaptopGuideImg,
+    },
+    {
+      title: "App Development",
+      description:
+        "Build mobile applications using native or cross-platform frameworks like React Native and Flutter.",
+      image: AppDevImg,
+    },
+    {
+      title: "Game Development",
+      description:
+        "Create immersive games using engines like Unity and Unreal with scripting and 3D modeling.",
+      image: GameDevImg,
+    },
+  ];
+
+  const WINNERS = [
+    {
+      team: "Team Losers",
+      position: 1,
+      label: "🏆 Champion",
+      prize: "₹25,000",
+      image: Winner1Img,
+      accent: "yellow",
+    },
+    {
+      team: "Team CodeWin",
+      position: 2,
+      label: "🥈 2nd Place",
+      prize: "₹15,000",
+      image: Winner2Img,
+      accent: "gray",
+    },
+    {
+      team: "Team CodeX",
+      position: 3,
+      label: "🥉 3rd Place",
+      prize: "₹10,000",
+      image: Winner3Img,
+      accent: "orange",
+    },
+  ];
+
+  const DOMAINS_CSOC = [
+    {
+      title: "Web Development",
+      description:
+        "Master the art of building modern web applications. Learn HTML, CSS, JavaScript, and popular frameworks like React. Build responsive, interactive websites and deploy them to production.",
+      image:
+        "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80",
+    },
+    {
+      title: "App Development",
+      description:
+        "Create powerful mobile applications for Android and iOS. Learn native development or cross-platform frameworks like React Native and Flutter. Build apps that solve real-world problems.",
+      image:
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80",
+    },
+    {
+      title: "Data Structures & Algorithms",
+      description:
+        "Build a strong foundation in DSA for coding interviews and competitive programming. Master essential data structures, algorithmic techniques, and problem-solving strategies to excel in technical assessments.",
+      image:
+        "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=80",
+    },
+  ];
+
   const event = events[eventId];
 
   if (!event) {
@@ -255,156 +371,202 @@ export const EventDetailPage = () => {
   }
 
   return (
-    <div className="min-h-screen text-white bg-tech-grid">
+    <div className="min-h-screen text-white bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Hero Image Section with Overlay Text */}
-        <div className="relative h-96 sm:h-[500px] md:h-[600px] mb-12 overflow-hidden rounded-2xl">
-          {/* Background Image */}
+        <div className="relative h-[60vh] min-h-[320px] sm:min-h-[420px] md:min-h-[520px] lg:min-h-[600px] mb-12 overflow-hidden rounded-2xl border border-orange-500/20">
           <img
             src={event.image}
             alt={event.name}
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover scale-105"
           />
 
-          {/* Dark Overlay */}
-          <div className="absolute inset-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20" />
 
-          {/* Centered Text Overlay */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center">
-              {/* Small number indicator */}
+          <div className="relative z-10 flex h-full items-center justify-center px-4">
+            <div className="text-center max-w-5xl">
+              <p className="mb-3 text-xs sm:text-sm md:text-base font-mono text-orange-400 tracking-widest">
+                $ codeshack.event
+              </p>
 
-              {/* Main Title */}
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold uppercase tracking-wider">
+              <h1
+                className="
+          font-bold uppercase tracking-wider text-white
+          text-[clamp(1.8rem,6vw,5rem)]
+          leading-tight
+        "
+              >
                 {event.name}
               </h1>
 
-              {/* Decorative underline */}
-              <div className="w-32 h-1 bg-white mx-auto mt-6"></div>
+              <div className="w-16 sm:w-24 md:w-32 h-0.5 sm:h-1 bg-orange-400 mx-auto mt-4 sm:mt-6" />
             </div>
           </div>
         </div>
 
         {/* Event Details Card */}
         <div className="space-y-8">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-white">
-            About the Event
+          <h2
+            className="text-2xl sm:text-3xl font-mono font-semibold mb-6
+  text-orange-400 tracking-wide"
+          >
+            <span className="text-orange-500">$</span> about --event
           </h2>
 
-          <div className="space-y-6 border-b border-gray-700 pb-8">
-            <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+          <div className="space-y-6 border-b border-orange-700 pb-8">
+            <p className="text-gray-300 text-sm text-justify leading-relaxed">
               {event.description}
             </p>
           </div>
 
           {/* Episodes Section - Only for CodeCafe */}
           {eventId === "codecafe" && (
-            <div className="mt-12 pb-16 border-b border-gray-700">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-12 text-white">
-                Episodes So Far
+            <div className="mt-10 pb-12 border-b border-orange-500">
+              {/* Section Heading */}
+              <h2
+                className="text-2xl sm:text-3xl font-mono font-semibold mb-6
+  text-orange-400 tracking-wide"
+              >
+                <span className="text-orange-500">$</span> episodes --list
               </h2>
 
-              <div className="grid md:grid-cols-2 gap-8">
-                {/* Episode 1 */}
+              {/* Episodes Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
+                {/* ================= EPISODE 1 ================= */}
                 <div
                   ref={(el) => (episodeCardsRef.current[0] = el)}
                   onClick={() => setSelectedEpisode(1)}
-                  className="bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-2xl overflow-hidden hover:border-purple-600/50 transition-all duration-300 cursor-pointer"
+                  className="
+          bg-gradient-to-br from-gray-900 to-black
+          border border-orange-800
+          rounded-xl
+          overflow-hidden
+          cursor-pointer
+          transition-all duration-300
+          hover:border-orange-600/50
+          active:scale-[0.98]
+        "
                 >
-                  {/* Episode Image */}
-                  <div className="relative h-48 overflow-hidden">
+                  {/* Image */}
+                  <div className="relative h-36 sm:h-48 overflow-hidden">
                     <img
                       src={Episode1Img}
                       alt="Episode 1"
-                      className="w-full h-full object-cover transform transition-transform duration-300 hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                     />
-                    <div className="absolute top-4 left-4 bg-purple-600 text-white px-4 py-2 rounded-full font-bold text-sm">
+                    <div className="absolute top-2 left-2 sm:top-4 sm:left-4 bg-orange-600 text-white px-2.5 sm:px-4 py-1 sm:py-2 rounded-full font-bold text-[10px] sm:text-sm">
                       EP-01
                     </div>
                   </div>
 
-                  {/* Episode Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-3">
+                  {/* Content */}
+                  <div className="p-4 sm:p-6">
+                    <h3 className="text-base sm:text-xl font-semibold text-white mb-2">
                       Breaking Into Tech: A Freshman's Guide
                     </h3>
-                    <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                      An insightful session covering the essential steps for first-year students to kickstart their tech journey. Topics included choosing the right tech stack, building projects, and preparing for internships.
+
+                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-3">
+                      A beginner-focused session on choosing the right tech
+                      stack, building projects, and preparing for internships.
                     </p>
 
-                    {/* Speaker Info */}
-                    <div className="border-t border-gray-700 pt-4 mt-4">
-                      <p className="text-xs text-gray-500 mb-2">SPEAKER</p>
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full flex items-center justify-center text-white font-bold">
+                    {/* Speaker */}
+                    <div className="border-t border-orange-800 pt-3 mt-3">
+                      <p className="text-[10px] text-gray-500 mb-1">SPEAKER</p>
+
+                      <div className="flex items-start gap-2">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-600 to-orange-700 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm">
                           SP
                         </div>
-                        <div>
-                          <p className="text-white font-semibold">Sumit Pathak</p>
-                          <p className="text-gray-400 text-xs">Software Engineer @ Tally Solutions Pvt. Ltd.</p>
+
+                        <div className="min-w-0">
+                          <p className="text-white text-sm sm:text-base font-medium leading-tight">
+                            Sumit Pathak
+                          </p>
+                          <p className="text-gray-400 text-[11px] sm:text-xs leading-snug">
+                            Software Engineer @ Tally Solutions
+                          </p>
                         </div>
                       </div>
-                      <div className="mt-3 space-y-1">
-                        <div className="flex items-center gap-2 text-xs text-gray-500">
-                          <Calendar size={14} className="text-purple-500" />
-                          <span>Date: September 14, 2025</span>
+
+                      <div className="mt-2 space-y-0.5">
+                        <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-gray-500">
+                          <Calendar size={12} className="text-orange-500" />
+                          <span>Sept 14, 2025</span>
                         </div>
-                        <div className="flex items-center gap-2 text-xs text-gray-500">
-                          <Clock size={14} className="text-purple-500" />
-                          <span>Duration: 1.5 hours</span>
+                        <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-gray-500">
+                          <Clock size={12} className="text-orange-500" />
+                          <span>1.5 hrs</span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Episode 2 */}
+                {/* ================= EPISODE 2 ================= */}
                 <div
                   ref={(el) => (episodeCardsRef.current[1] = el)}
                   onClick={() => setSelectedEpisode(2)}
-                  className="bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-2xl overflow-hidden hover:border-purple-600/50 transition-all duration-300 cursor-pointer"
+                  className="
+          bg-gradient-to-br from-gray-900 to-black
+          border border-orange-800
+          rounded-xl
+          overflow-hidden
+          cursor-pointer
+          transition-all duration-300
+          hover:border-orange-600/50
+          active:scale-[0.98]
+        "
                 >
-                  {/* Episode Image */}
-                  <div className="relative h-48 overflow-hidden">
+                  {/* Image */}
+                  <div className="relative h-36 sm:h-48 overflow-hidden">
                     <img
                       src={Episode2Img}
                       alt="Episode 2"
-                      className="w-full h-full object-cover transform transition-transform duration-300 hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                     />
-                    <div className="absolute top-4 left-4 bg-purple-600 text-white px-4 py-2 rounded-full font-bold text-sm">
+                    <div className="absolute top-2 left-2 sm:top-4 sm:left-4 bg-orange-600 text-white px-2.5 sm:px-4 py-1 sm:py-2 rounded-full font-bold text-[10px] sm:text-sm">
                       EP-02
                     </div>
                   </div>
 
-                  {/* Episode Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-3">
-                      AI in Software Engineering: The Future is Here
+                  {/* Content */}
+                  <div className="p-4 sm:p-6">
+                    <h3 className="text-base sm:text-xl font-semibold text-white mb-2">
+                      AI in Software Engineering
                     </h3>
-                    <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                      An insightful session on how Artificial Intelligence is transforming software engineering, the shifting role of engineers, and practical advice for students and aspiring founders.
+
+                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-3">
+                      A discussion on AI’s impact on software engineering,
+                      career paths, and real-world applications.
                     </p>
 
-                    {/* Speaker Info */}
-                    <div className="border-t border-gray-700 pt-4 mt-4">
-                      <p className="text-xs text-gray-500 mb-2">SPEAKER</p>
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full flex items-center justify-center text-white font-bold">
+                    {/* Speaker */}
+                    <div className="border-t border-orange-800 pt-3 mt-3">
+                      <p className="text-[10px] text-gray-500 mb-1">SPEAKER</p>
+
+                      <div className="flex items-start gap-2">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-600 to-orange-700 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm">
                           KA
                         </div>
-                        <div>
-                          <p className="text-white font-semibold">Khushagra Agarwal</p>
-                          <p className="text-gray-400 text-xs">Co-founder @ Zryth Solutions</p>
+
+                        <div className="min-w-0">
+                          <p className="text-white text-sm sm:text-base font-medium leading-tight">
+                            Khushagra Agarwal
+                          </p>
+                          <p className="text-gray-400 text-[11px] sm:text-xs leading-snug">
+                            Co-founder @ Zryth Solutions
+                          </p>
                         </div>
                       </div>
-                      <div className="mt-3 space-y-1">
-                        <div className="flex items-center gap-2 text-xs text-gray-500">
-                          <Calendar size={14} className="text-purple-500" />
-                          <span>Date: December 27, 2025</span>
+
+                      <div className="mt-2 space-y-0.5">
+                        <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-gray-500">
+                          <Calendar size={12} className="text-orange-500" />
+                          <span>Dec 27, 2025</span>
                         </div>
-                        <div className="flex items-center gap-2 text-xs text-gray-500">
-                          <Clock size={14} className="text-purple-500" />
-                          <span>Duration: 1.5 hours</span>
+                        <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-gray-500">
+                          <Clock size={12} className="text-orange-500" />
+                          <span>1.5 hrs</span>
                         </div>
                       </div>
                     </div>
@@ -416,257 +578,78 @@ export const EventDetailPage = () => {
 
           {/* Domain Timeline Section - Only for Tech Vistara */}
           {eventId === "tech-vistara" && (
-            <div className="mt-12 pb-16 border-b border-gray-700">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-12 text-white">
-                Domains Covered
+            <div className="mt-12 pb-16 border-b border-orange-700">
+              {/* Terminal Heading */}
+              <h2 className="text-2xl sm:text-3xl font-mono font-semibold mb-10 text-orange-400 tracking-wide">
+                <span className="text-orange-500">$</span> domains --list
               </h2>
 
-              {/* Timeline Container */}
               <div className="relative">
-                {/* Vertical Dotted Line in the Middle */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 border-l-2 border-dotted border-orange-500/50 hidden md:block"></div>
+                {/* Vertical dotted line */}
+                <div
+                  className="absolute left-1/2 -translate-x-1/2 h-full w-0.5
+      border-l-2 border-dotted border-orange-500/40 hidden md:block"
+                />
 
-                {/* Timeline Items */}
                 <div className="space-y-16">
-                  {/* 1. DSA - Left Content, Right Image */}
-                  <div
-                    ref={(el) => (domainItemsRef.current[0] = el)}
-                    className="relative grid md:grid-cols-2 gap-8 items-center"
-                  >
-                    {/* Content Left */}
-                    <div className="md:text-right order-2 md:order-1">
-                      <div className="border border-gray-700 rounded-2xl p-6 md:mr-8 bg-black/20">
-                        <h3 className="text-2xl font-bold text-white mb-3">Data Structures & Algorithms</h3>
-                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                          Learn the fundamentals of DSA, essential for coding interviews and competitive programming. Master arrays, linked lists, trees, graphs, and algorithmic problem-solving techniques.
-                        </p>
-                      </div>
-                    </div>
+                  {DOMAINS_TV.map((domain, index) => {
+                    const isLeft = index % 2 === 0;
 
-                    {/* Center Dot */}
-                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-black hidden md:block z-10"></div>
+                    return (
+                      <div
+                        key={index}
+                        ref={(el) => (domainItemsRef.current[index] = el)}
+                        className="relative grid md:grid-cols-2 gap-8 items-center"
+                      >
+                        {/* Content */}
+                        <div
+                          className={`order-2 ${
+                            isLeft ? "md:order-1 md:text-right" : "md:text-left"
+                          }`}
+                        >
+                          <div
+                            className={`border border-orange-700 rounded-2xl p-6
+                bg-black/30 backdrop-blur
+                ${isLeft ? "md:mr-8" : "md:ml-8"}`}
+                          >
+                            <h3 className="text-xl sm:text-2xl font-mono font-bold text-orange-400 mb-3">
+                              <span className="text-orange-500">$</span>{" "}
+                              {domain.title.toLowerCase()}
+                            </h3>
 
-                    {/* Image Right */}
-                    <div className="order-1 md:order-2">
-                      <div className="overflow-hidden rounded-2xl border border-gray-700 shadow-xl md:ml-8">
-                        <img
-                          src={DsaImg}
-                          alt="DSA Domain"
-                          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-110"
+                            <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
+                              {domain.description}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Center Dot */}
+                        <div
+                          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+              w-4 h-4 bg-orange-500 rounded-full border-4 border-black
+              hidden md:block z-10"
                         />
+
+                        {/* Image */}
+                        <div
+                          className={`order-1 ${isLeft ? "md:order-2" : ""}`}
+                        >
+                          <div
+                            className={`overflow-hidden rounded-2xl
+                border border-orange-700 shadow-xl
+                ${isLeft ? "md:ml-8" : "md:mr-8"}`}
+                          >
+                            <img
+                              src={domain.image}
+                              alt={domain.title}
+                              className="w-full h-64 object-cover
+                  transition-transform duration-300 hover:scale-110"
+                            />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-
-                  {/* 2. Web Development - Right Content, Left Image */}
-                  <div
-                    ref={(el) => (domainItemsRef.current[1] = el)}
-                    className="relative grid md:grid-cols-2 gap-8 items-center"
-                  >
-                    {/* Image Left */}
-                    <div className="order-1">
-                      <div className="overflow-hidden rounded-2xl border border-gray-700 shadow-xl md:mr-8">
-                        <img
-                          src={WebDevImg}
-                          alt="Web Development"
-                          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-110"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Center Dot */}
-                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-black hidden md:block z-10"></div>
-
-                    {/* Content Right */}
-                    <div className="md:text-left order-2">
-                      <div className="border border-gray-700 rounded-2xl p-6 md:ml-8 bg-black/20">
-                        <h3 className="text-2xl font-bold text-white mb-3">Web Development</h3>
-                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                          Master modern web technologies including HTML5, CSS3, JavaScript, and React. Build responsive, interactive websites and web applications from scratch to deployment.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 3. Cyber Security - Left Content, Right Image */}
-                  <div
-                    ref={(el) => (domainItemsRef.current[2] = el)}
-                    className="relative grid md:grid-cols-2 gap-8 items-center"
-                  >
-                    {/* Content Left */}
-                    <div className="md:text-right order-2 md:order-1">
-                      <div className="border border-gray-700 rounded-2xl p-6 md:mr-8 bg-black/20">
-                        <h3 className="text-2xl font-bold text-white mb-3">Cyber Security</h3>
-                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                          Protect systems and networks from digital attacks. Learn about ethical hacking, network security, cryptography, and security protocols to safeguard information.
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Center Dot */}
-                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-black hidden md:block z-10"></div>
-
-                    {/* Image Right */}
-                    <div className="order-1 md:order-2">
-                      <div className="overflow-hidden rounded-2xl border border-gray-700 shadow-xl md:ml-8">
-                        <img
-                          src={RosImg}
-                          alt="Cyber Security"
-                          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-110"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 4. UI/UX Design - Right Content, Left Image */}
-                  <div
-                    ref={(el) => (domainItemsRef.current[3] = el)}
-                    className="relative grid md:grid-cols-2 gap-8 items-center"
-                  >
-                    {/* Image Left */}
-                    <div className="order-1">
-                      <div className="overflow-hidden rounded-2xl border border-gray-700 shadow-xl md:mr-8">
-                        <img
-                          src={PersonalBrandingImg}
-                          alt="UI/UX Design"
-                          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-110"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Center Dot */}
-                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-black hidden md:block z-10"></div>
-
-                    {/* Content Right */}
-                    <div className="md:text-left order-2">
-                      <div className="border border-gray-700 rounded-2xl p-6 md:ml-8 bg-black/20">
-                        <h3 className="text-2xl font-bold text-white mb-3">UI/UX Design</h3>
-                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                          Design intuitive and beautiful user interfaces. Master design principles, wireframing, prototyping, and user research to create exceptional digital experiences.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 5. AI/ML - Left Content, Right Image */}
-                  <div
-                    ref={(el) => (domainItemsRef.current[4] = el)}
-                    className="relative grid md:grid-cols-2 gap-8 items-center"
-                  >
-                    {/* Content Left */}
-                    <div className="md:text-right order-2 md:order-1">
-                      <div className="border border-gray-700 rounded-2xl p-6 md:mr-8 bg-black/20">
-                        <h3 className="text-2xl font-bold text-white mb-3">AI & Machine Learning</h3>
-                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                          Explore the world of Artificial Intelligence. Learn about machine learning algorithms, deep learning, neural networks, and how to build intelligent systems.
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Center Dot */}
-                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-black hidden md:block z-10"></div>
-
-                    {/* Image Right */}
-                    <div className="order-1 md:order-2">
-                      <div className="overflow-hidden rounded-2xl border border-gray-700 shadow-xl md:ml-8">
-                        <img
-                          src={VideoEditingImg}
-                          alt="AI/ML"
-                          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-110"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 6. Laptop Guide - Right Content, Left Image */}
-                  <div
-                    ref={(el) => (domainItemsRef.current[5] = el)}
-                    className="relative grid md:grid-cols-2 gap-8 items-center"
-                  >
-                    {/* Image Left */}
-                    <div className="order-1">
-                      <div className="overflow-hidden rounded-2xl border border-gray-700 shadow-xl md:mr-8">
-                        <img
-                          src={LaptopGuideImg}
-                          alt="Laptop Guide"
-                          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-110"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Center Dot */}
-                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-black hidden md:block z-10"></div>
-
-                    {/* Content Right */}
-                    <div className="md:text-left order-2">
-                      <div className="border border-gray-700 rounded-2xl p-6 md:ml-8 bg-black/20">
-                        <h3 className="text-2xl font-bold text-white mb-3">Laptop Buying Guide</h3>
-                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                          Make informed decisions when purchasing a laptop for engineering and development. Learn about specs, performance requirements, and budget-friendly options.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 7. App Development - Left Content, Right Image */}
-                  <div
-                    ref={(el) => (domainItemsRef.current[6] = el)}
-                    className="relative grid md:grid-cols-2 gap-8 items-center"
-                  >
-                    {/* Content Left */}
-                    <div className="md:text-right order-2 md:order-1">
-                      <div className="border border-gray-700 rounded-2xl p-6 md:mr-8 bg-black/20">
-                        <h3 className="text-2xl font-bold text-white mb-3">App Development</h3>
-                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                          Create powerful mobile applications for Android and iOS. Learn native development or cross-platform frameworks like React Native and Flutter.
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Center Dot */}
-                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-black hidden md:block z-10"></div>
-
-                    {/* Image Right */}
-                    <div className="order-1 md:order-2">
-                      <div className="overflow-hidden rounded-2xl border border-gray-700 shadow-xl md:ml-8">
-                        <img
-                          src={AppDevImg}
-                          alt="App Development"
-                          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-110"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 8. Game Development - Right Content, Left Image */}
-                  <div
-                    ref={(el) => (domainItemsRef.current[7] = el)}
-                    className="relative grid md:grid-cols-2 gap-8 items-center"
-                  >
-                    {/* Image Left */}
-                    <div className="order-1">
-                      <div className="overflow-hidden rounded-2xl border border-gray-700 shadow-xl md:mr-8">
-                        <img
-                          src={GameDevImg}
-                          alt="Game Development"
-                          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-110"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Center Dot */}
-                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-black hidden md:block z-10"></div>
-
-                    {/* Content Right */}
-                    <div className="md:text-left order-2">
-                      <div className="border border-gray-700 rounded-2xl p-6 md:ml-8 bg-black/20">
-                        <h3 className="text-2xl font-bold text-white mb-3">Game Development</h3>
-                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                          Dive into the world of game creation. Learn about game engines like Unity and Unreal, game physics, scripting, and 3D modeling to build immersive gaming experiences.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -674,226 +657,185 @@ export const EventDetailPage = () => {
 
           {/* Domain Timeline Section - Only for CSoC */}
           {eventId === "csoc" && (
-            <div className="mt-12 pb-16 border-b border-gray-700">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-12 text-white">
-                Domains Covered
+            <div className="mt-12 pb-16 border-b border-orange-700">
+              {/* Terminal Heading */}
+              <h2 className="text-2xl sm:text-3xl font-mono font-semibold mb-6 text-orange-400 tracking-wide">
+                <span className="text-orange-500">$</span> domains --list
               </h2>
 
-              {/* Timeline Container */}
               <div className="relative">
-                {/* Vertical Dotted Line in the Middle */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 border-l-2 border-dotted border-purple-500/50 hidden md:block"></div>
+                {/* Vertical Dotted Line */}
+                <div
+                  className="absolute left-1/2 -translate-x-1/2 h-full w-0.5
+      border-l-2 border-dotted border-orange-500/50 hidden md:block"
+                />
 
-                {/* Timeline Items */}
                 <div className="space-y-16">
-                  {/* 1. Web Development - Left Content, Right Image */}
-                  <div
-                    ref={(el) => (domainItemsRef.current[0] = el)}
-                    className="relative grid md:grid-cols-2 gap-8 items-center"
-                  >
-                    {/* Content Left */}
-                    <div className="md:text-right order-2 md:order-1">
-                      <div className="border border-gray-700 rounded-2xl p-6 md:mr-8 bg-black/20">
-                        <h3 className="text-2xl font-bold text-white mb-3">Web Development</h3>
-                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                          Master the art of building modern web applications. Learn HTML, CSS, JavaScript, and popular frameworks like React. Build responsive, interactive websites and deploy them to production.
-                        </p>
-                      </div>
-                    </div>
+                  {DOMAINS_CSOC.map((domain, index) => {
+                    const isLeft = index % 2 === 0;
 
-                    {/* Center Dot */}
-                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-purple-500 rounded-full border-4 border-black hidden md:block z-10"></div>
+                    return (
+                      <div
+                        key={index}
+                        ref={(el) => (domainItemsRef.current[index] = el)}
+                        className="relative grid md:grid-cols-2 gap-8 items-center"
+                      >
+                        {/* Content */}
+                        <div
+                          className={`order-2 ${
+                            isLeft ? "md:order-1 md:text-right" : "md:text-left"
+                          }`}
+                        >
+                          <div
+                            className={`border border-orange-700 rounded-2xl p-6 bg-black/20
+                ${isLeft ? "md:mr-8" : "md:ml-8"}`}
+                          >
+                            <h3 className="text-2xl font-mono font-bold text-orange-400 mb-3">
+                              <span className="text-orange-500">$</span>{" "}
+                              {domain.title.toLowerCase()}
+                            </h3>
 
-                    {/* Image Right */}
-                    <div className="order-1 md:order-2">
-                      <div className="overflow-hidden rounded-2xl border border-gray-700 shadow-xl md:ml-8">
-                        <img
-                          src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80"
-                          alt="Web Development"
-                          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-110"
+                            <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+                              {domain.description}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Center Dot */}
+                        <div
+                          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+              w-4 h-4 bg-orange-500 rounded-full border-4 border-black
+              hidden md:block z-10"
                         />
+
+                        {/* Image */}
+                        <div
+                          className={`order-1 ${isLeft ? "md:order-2" : ""}`}
+                        >
+                          <div
+                            className={`overflow-hidden rounded-2xl border border-orange-700 shadow-xl
+                ${isLeft ? "md:ml-8" : "md:mr-8"}`}
+                          >
+                            <img
+                              src={domain.image}
+                              alt={domain.title}
+                              className="w-full h-64 object-cover transition-transform duration-300 hover:scale-110"
+                            />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-
-                  {/* 2. App Development - Right Content, Left Image */}
-                  <div
-                    ref={(el) => (domainItemsRef.current[1] = el)}
-                    className="relative grid md:grid-cols-2 gap-8 items-center"
-                  >
-                    {/* Image Left */}
-                    <div className="order-1">
-                      <div className="overflow-hidden rounded-2xl border border-gray-700 shadow-xl md:mr-8">
-                        <img
-                          src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80"
-                          alt="App Development"
-                          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-110"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Center Dot */}
-                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-purple-500 rounded-full border-4 border-black hidden md:block z-10"></div>
-
-                    {/* Content Right */}
-                    <div className="md:text-left order-2">
-                      <div className="border border-gray-700 rounded-2xl p-6 md:ml-8 bg-black/20">
-                        <h3 className="text-2xl font-bold text-white mb-3">App Development</h3>
-                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                          Create powerful mobile applications for Android and iOS. Learn native development or cross-platform frameworks like React Native and Flutter. Build apps that solve real-world problems.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 3. DSA - Left Content, Right Image */}
-                  <div
-                    ref={(el) => (domainItemsRef.current[2] = el)}
-                    className="relative grid md:grid-cols-2 gap-8 items-center"
-                  >
-                    {/* Content Left */}
-                    <div className="md:text-right order-2 md:order-1">
-                      <div className="border border-gray-700 rounded-2xl p-6 md:mr-8 bg-black/20">
-                        <h3 className="text-2xl font-bold text-white mb-3">Data Structures & Algorithms</h3>
-                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                          Build a strong foundation in DSA for coding interviews and competitive programming. Master essential data structures, algorithmic techniques, and problem-solving strategies to excel in technical assessments.
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Center Dot */}
-                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-purple-500 rounded-full border-4 border-black hidden md:block z-10"></div>
-
-                    {/* Image Right */}
-                    <div className="order-1 md:order-2">
-                      <div className="overflow-hidden rounded-2xl border border-gray-700 shadow-xl md:ml-8">
-                        <img
-                          src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=80"
-                          alt="DSA"
-                          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-110"
-                        />
-                      </div>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
           )}
 
-
           {/* Winners Section - Only for HackNocturne */}
           {eventId === "hacknocturne" && (
-            <div className="mt-12 pb-16 border-b border-gray-700">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-12 text-white">
-                Winners
-              </h2>
-
+            <div className="">
               <div className="space-y-20">
                 {/* 1st Place - Photo Right, Description Left */}
-                <div
-                  ref={(el) => (winnerCardsRef.current[0] = el)}
-                  className="grid md:grid-cols-2 gap-8 items-center"
-                >
-                  {/* Description Left */}
-                  <div className="order-2 md:order-1">
-                    <div className="bg-gradient-to-br from-yellow-600/20 to-orange-600/20 border border-yellow-500/30 rounded-2xl p-8">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="bg-yellow-500 text-black w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">
-                          1
+                <div className="mt-16">
+                  {/* Terminal Header */}
+                  <h2 className="text-2xl sm:text-3xl font-mono font-semibold mb-10 text-orange-400 tracking-wide">
+                    <span className="text-orange-500">$</span> winners --list
+                  </h2>
+
+                  <div className="space-y-16">
+                    {WINNERS.map((winner, index) => {
+                      const isLeft = index % 2 === 0;
+
+                      return (
+                        <div
+                          key={index}
+                          ref={(el) => (winnerCardsRef.current[index] = el)}
+                          className="grid md:grid-cols-2 gap-8 items-center"
+                        >
+                          {/* Description */}
+                          <div
+                            className={`order-2 ${isLeft ? "md:order-1" : ""}`}
+                          >
+                            <div
+                              className={`
+                bg-black/40 backdrop-blur
+                border border-orange-500/30
+                rounded-2xl p-8
+                ${winner.accent === "yellow" && "shadow-yellow-500/20"}
+                ${winner.accent === "orange" && "shadow-orange-500/20"}
+                ${winner.accent === "gray" && "shadow-gray-500/20"}
+              `}
+                            >
+                              <div className="flex items-center gap-4 mb-4">
+                                <div
+                                  className={`
+                    w-12 h-12 rounded-full flex items-center justify-center
+                    text-xl font-bold
+                    ${winner.accent === "yellow" && "bg-yellow-500 text-black"}
+                    ${winner.accent === "orange" && "bg-orange-600 text-white"}
+                    ${winner.accent === "gray" && "bg-gray-400 text-black"}
+                  `}
+                                >
+                                  {winner.position}
+                                </div>
+
+                                <h3 className="text-3xl font-mono font-bold text-white">
+                                  {winner.team}
+                                </h3>
+                              </div>
+
+                              <p
+                                className={`
+                  text-xl font-semibold mb-4
+                  ${winner.accent === "yellow" && "text-yellow-400"}
+                  ${winner.accent === "orange" && "text-orange-400"}
+                  ${winner.accent === "gray" && "text-gray-300"}
+                `}
+                              >
+                                {winner.label}
+                              </p>
+
+                              <div className="bg-black/60 rounded-lg p-4 border border-orange-500/20">
+                                <p className="text-gray-400 text-sm mb-2 font-mono">
+                                  prize.amount
+                                </p>
+                                <p
+                                  className={`
+                    text-3xl font-bold
+                    ${winner.accent === "yellow" && "text-yellow-400"}
+                    ${winner.accent === "orange" && "text-orange-400"}
+                    ${winner.accent === "gray" && "text-gray-300"}
+                  `}
+                                >
+                                  {winner.prize}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Image */}
+                          <div
+                            className={`order-1 ${isLeft ? "md:order-2" : ""}`}
+                          >
+                            <div
+                              className={`
+                overflow-hidden rounded-2xl border-2 border-orange-500/30
+                shadow-2xl
+                ${winner.accent === "yellow" && "shadow-yellow-500/20"}
+                ${winner.accent === "orange" && "shadow-orange-500/20"}
+                ${winner.accent === "gray" && "shadow-gray-500/20"}
+              `}
+                            >
+                              <img
+                                src={winner.image}
+                                alt={winner.team}
+                                className="w-full h-80 object-cover transition-transform duration-300 hover:scale-110"
+                              />
+                            </div>
+                          </div>
                         </div>
-                        <h3 className="text-3xl font-bold text-white">Team Losers</h3>
-                      </div>
-                      <div className="mb-4">
-                        <p className="text-yellow-400 text-xl font-semibold">🏆 Champion</p>
-                      </div>
-                      <div className="bg-black/40 rounded-lg p-4 border border-yellow-500/20">
-                        <p className="text-gray-300 text-sm mb-2">Prize Amount</p>
-                        <p className="text-yellow-400 text-3xl font-bold">₹25,000</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Photo Right */}
-                  <div className="order-1 md:order-2">
-                    <div className="overflow-hidden rounded-2xl border-2 border-yellow-500/30 shadow-2xl shadow-yellow-500/20">
-                      <img
-                        src={Winner1Img}
-                        alt="Team Losers"
-                        className="w-full h-80 object-cover transform transition-transform duration-300 hover:scale-110"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* 2nd Place - Photo Left, Description Right */}
-                <div
-                  ref={(el) => (winnerCardsRef.current[1] = el)}
-                  className="grid md:grid-cols-2 gap-8 items-center"
-                >
-                  {/* Photo Left */}
-                  <div className="order-1">
-                    <div className="overflow-hidden rounded-2xl border-2 border-gray-500/30 shadow-2xl shadow-gray-500/20">
-                      <img
-                        src={Winner2Img}
-                        alt="Team CodeWin"
-                        className="w-full h-80 object-cover transform transition-transform duration-300 hover:scale-110"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Description Right */}
-                  <div className="order-2">
-                    <div className="bg-gradient-to-br from-gray-700/20 to-gray-800/20 border border-gray-500/30 rounded-2xl p-8">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="bg-gray-400 text-black w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">
-                          2
-                        </div>
-                        <h3 className="text-3xl font-bold text-white">Team CodeWin</h3>
-                      </div>
-                      <div className="mb-4">
-                        <p className="text-gray-300 text-xl font-semibold">🥈 2nd Place</p>
-                      </div>
-                      <div className="bg-black/40 rounded-lg p-4 border border-gray-500/20">
-                        <p className="text-gray-300 text-sm mb-2">Prize Amount</p>
-                        <p className="text-gray-300 text-3xl font-bold">₹15,000</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 3rd Place - Photo Right, Description Left */}
-                <div
-                  ref={(el) => (winnerCardsRef.current[2] = el)}
-                  className="grid md:grid-cols-2 gap-8 items-center"
-                >
-                  {/* Description Left */}
-                  <div className="order-2 md:order-1">
-                    <div className="bg-gradient-to-br from-orange-700/20 to-orange-900/20 border border-orange-500/30 rounded-2xl p-8">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="bg-orange-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">
-                          3
-                        </div>
-                        <h3 className="text-3xl font-bold text-white">Team CodeX</h3>
-                      </div>
-                      <div className="mb-4">
-                        <p className="text-orange-400 text-xl font-semibold">🥉 3rd Place</p>
-                      </div>
-                      <div className="bg-black/40 rounded-lg p-4 border border-orange-500/20">
-                        <p className="text-gray-300 text-sm mb-2">Prize Amount</p>
-                        <p className="text-orange-400 text-3xl font-bold">₹10,000</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Photo Right */}
-                  <div className="order-1 md:order-2">
-                    <div className="overflow-hidden rounded-2xl border-2 border-orange-500/30 shadow-2xl shadow-orange-500/20">
-                      <img
-                        src={Winner3Img}
-                        alt="Team CodeX"
-                        className="w-full h-80 object-cover transform transition-transform duration-300 hover:scale-110"
-                      />
-                    </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -903,15 +845,20 @@ export const EventDetailPage = () => {
           {/* Image Carousel - Only for HackNocturne */}
           {eventId === "hacknocturne" && (
             <div className="mt-20">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-white">
-                Event Gallery
+              <h2
+                className="text-2xl sm:text-3xl font-mono font-semibold mb-6
+  text-orange-400 tracking-wide"
+              >
+                <span className="text-orange-500">$</span> event --gallery
               </h2>
 
               <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] rounded-2xl overflow-hidden group">
                 {/* Carousel Container with Sliding Animation */}
                 <div
                   className="flex h-full transition-transform duration-700 ease-in-out"
-                  style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+                  style={{
+                    transform: `translateX(-${currentImageIndex * 100}%)`,
+                  }}
                 >
                   {hacknocturneImages.map((image, index) => (
                     <img
@@ -946,10 +893,11 @@ export const EventDetailPage = () => {
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`w-3 h-3 rounded-full transition-all ${index === currentImageIndex
-                        ? "bg-orange-500 w-8"
-                        : "bg-white/50 hover:bg-white/80"
-                        }`}
+                      className={`w-3 h-3 rounded-full transition-all ${
+                        index === currentImageIndex
+                          ? "bg-orange-500 w-8"
+                          : "bg-white/50 hover:bg-white/80"
+                      }`}
                       aria-label={`Go to image ${index + 1}`}
                     />
                   ))}
@@ -961,137 +909,120 @@ export const EventDetailPage = () => {
 
         {/* Episode 1 Modal */}
         {selectedEpisode === 1 && (
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-            <div className="bg-black/40 backdrop-blur-xl border border-purple-400/20 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto my-8 custom-scrollbar">
-              {/* Modal Header */}
-              <div className="sticky top-0 bg-purple-900/30 backdrop-blur-md border-b border-purple-400/20 p-6 flex justify-between items-start z-10">
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+            <div className="bg-black/40 backdrop-blur-xl border border-orange-400/20 rounded-xl sm:rounded-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto custom-scrollbar">
+              {/* Header */}
+              <div className="sticky top-0 bg-orange-900/30 backdrop-blur-md border-b border-orange-400/20 px-4 py-3 sm:p-6 flex justify-between items-start z-10">
                 <div>
-                  <div className="bg-white/10 text-white px-3 py-1 rounded-full font-bold text-xs inline-block mb-2">
+                  <div className="bg-white/10 text-white px-2.5 py-1 rounded-full font-bold text-[10px] sm:text-xs inline-block mb-1">
                     EP-01
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-white">
+                  <h2 className="text-lg sm:text-2xl md:text-3xl font-bold text-white leading-tight">
                     Breaking Into Tech: A Freshman's Guide
                   </h2>
-                  <div className="flex items-center gap-4 mt-3 text-sm text-white/90">
-                    <div className="flex items-center gap-2">
-                      <Calendar size={16} />
-                      <span>September 14, 2025</span>
+                  <div className="flex flex-wrap items-center gap-3 mt-2 text-[11px] sm:text-sm text-white/80">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar size={14} />
+                      <span>Sept 14, 2025</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Clock size={16} />
-                      <span>1.5 hours</span>
+                    <div className="flex items-center gap-1.5">
+                      <Clock size={14} />
+                      <span>1.5 hrs</span>
                     </div>
                   </div>
                 </div>
+
                 <button
                   onClick={() => setSelectedEpisode(null)}
-                  className="bg-white/10 hover:bg-white/20 text-white p-2 rounded-full transition-colors"
+                  className="bg-white/10 hover:bg-white/20 text-white p-1.5 sm:p-2 rounded-full"
                 >
-                  <X size={24} />
+                  <X size={20} />
                 </button>
               </div>
 
-              {/* Modal Content */}
-              <div className="p-6 md:p-8 space-y-8">
-                {/* Speaker Info */}
-                <div className="bg-white/5 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6">
-                  <p className="text-xs text-gray-400 mb-3 uppercase tracking-wider">Featured Speaker</p>
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500/80 to-purple-600/80 rounded-full flex items-center justify-center text-white font-bold text-xl">
+              {/* Content */}
+              <div className="p-4 sm:p-8 space-y-6 sm:space-y-8">
+                {/* Speaker */}
+                <div className="bg-white/5 border border-orange-400/20 rounded-lg sm:rounded-xl p-4 sm:p-6">
+                  <p className="text-[10px] text-gray-400 mb-2 uppercase tracking-wider">
+                    Featured Speaker
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
                       SP
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-white">Sumit Pathak</h3>
-                      <p className="text-purple-300">Software Engineer @ Tally Solutions Pvt. Ltd.</p>
-                      <p className="text-gray-400 text-sm mt-1">Alumnus & Experienced Engineer</p>
+                      <h3 className="text-base sm:text-xl font-semibold text-white">
+                        Sumit Pathak
+                      </h3>
+                      <p className="text-orange-300 text-sm">
+                        Software Engineer @ Tally Solutions
+                      </p>
+                      <p className="text-gray-400 text-xs mt-0.5">
+                        Alumnus & Industry Professional
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Event Overview */}
-                <div className="prose prose-invert max-w-none">
-                  <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                    <FileText className="text-purple-400" size={24} /> Event Overview
+                {/* Overview */}
+                <div>
+                  <h3 className="text-lg sm:text-2xl font-bold text-white mb-3 flex items-center gap-2">
+                    <FileText className="text-orange-400" size={20} /> Overview
                   </h3>
-                  <p className="text-gray-300 leading-relaxed">
-                    The session featured Sumit Pathak, an alumnus and Software Engineer at Tally Solutions.
-                    The talk focused on essential topics for placements, including Data Structures & Algorithms (DSA),
-                    core concepts, and the distinction between product-based and service-based companies.
+                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+                    The session focused on placement fundamentals including DSA,
+                    core CS subjects, and understanding the difference between
+                    product-based and service-based companies.
                   </p>
                 </div>
 
-                {/* Key Themes Section */}
-                <div className="space-y-6">
-                  <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                    <Key className="text-purple-400" size={24} /> Key Themes & Insights
+                {/* Key Themes */}
+                <div className="space-y-4 sm:space-y-6">
+                  <h3 className="text-lg sm:text-2xl font-bold text-white flex items-center gap-2">
+                    <Key className="text-orange-400" size={20} /> Key Insights
                   </h3>
 
-                  {/* Theme 1 */}
-                  <div className="bg-white/5 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6">
-                    <h4 className="text-xl font-bold text-purple-300 mb-4">
-                      1. Placement Fundamentals
-                    </h4>
-                    <div className="space-y-3 text-gray-300">
-                      <div className="flex gap-3">
-                        <span className="text-purple-500 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Data Structures & Algorithms (DSA):</strong> The backbone of technical interviews at top product companies.
-                          Focus on arrays, linked lists, trees, graphs, and dynamic programming.
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <span className="text-purple-500 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Core Computer Science Subjects:</strong> Strong grasp of Operating Systems (OS),
-                          Database Management Systems (DBMS), and Computer Networks (CN) is crucial for interviews.
-                        </div>
-                      </div>
+                  {[
+                    {
+                      title: "Placement Fundamentals",
+                      points: [
+                        "DSA is the backbone of technical interviews.",
+                        "OS, DBMS & CN are critical for shortlisting.",
+                      ],
+                    },
+                    {
+                      title: "Company Landscape",
+                      points: [
+                        "Product companies focus on problem solving.",
+                        "Service companies emphasize aptitude & basics.",
+                      ],
+                    },
+                    {
+                      title: "Preparation Strategy",
+                      points: [
+                        "Consistency matters more than speed.",
+                        "Strong projects boost resumes significantly.",
+                      ],
+                    },
+                  ].map((theme, i) => (
+                    <div
+                      key={i}
+                      className="bg-white/5 border border-orange-400/20 rounded-lg sm:rounded-xl p-4 sm:p-6"
+                    >
+                      <h4 className="text-sm sm:text-xl font-semibold text-orange-300 mb-2">
+                        {i + 1}. {theme.title}
+                      </h4>
+                      <ul className="space-y-1.5 text-gray-300 text-xs sm:text-base">
+                        {theme.points.map((p, idx) => (
+                          <li key={idx} className="flex gap-2">
+                            <span className="text-orange-400">•</span>
+                            <span>{p}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </div>
-
-                  {/* Theme 2 */}
-                  <div className="bg-white/5 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6">
-                    <h4 className="text-xl font-bold text-purple-300 mb-4">
-                      2. Company Landscape
-                    </h4>
-                    <div className="space-y-3 text-gray-300">
-                      <div className="flex gap-3">
-                        <span className="text-purple-400 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Product-Based Companies:</strong> Companies like Google, Amazon, Microsoft that build their own products.
-                          Interviews focus heavily on DSA, problem-solving, and system design.
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <span className="text-purple-400 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Service-Based Companies:</strong> Companies like TCS, Infosys, Wipro that provide services to other clients.
-                          Interviews often focus on aptitude, communication skills, and basic technical knowledge.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Theme 3 */}
-                  <div className="bg-white/5 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6">
-                    <h4 className="text-xl font-bold text-purple-300 mb-4">
-                      3. Preparation Strategy
-                    </h4>
-                    <div className="space-y-3 text-gray-300">
-                      <div className="flex gap-3">
-                        <span className="text-purple-300 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Consistency is Key:</strong> Solve coding problems daily on platforms like LeetCode or GeeksforGeeks.
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <span className="text-purple-300 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Projects:</strong> Build good projects (Web/App/ML) to showcase your practical skills on your resume.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -1100,194 +1031,155 @@ export const EventDetailPage = () => {
 
         {/* Episode 2 Modal */}
         {selectedEpisode === 2 && (
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-            <div className="bg-black/40 backdrop-blur-xl border border-purple-400/20 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto my-8 custom-scrollbar">
-              {/* Modal Header */}
-              <div className="sticky top-0 bg-purple-900/30 backdrop-blur-md border-b border-purple-400/20 p-6 flex justify-between items-start z-10">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-3 sm:p-4 overflow-y-auto">
+            <div className="bg-black/50 backdrop-blur-xl border border-orange-400/20 rounded-xl sm:rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto custom-scrollbar">
+              {/* ===== Header ===== */}
+              <div className="sticky top-0 bg-orange-900/30 backdrop-blur-md border-b border-orange-400/20 px-4 py-3 sm:p-6 flex justify-between items-start z-10">
                 <div>
-                  <div className="bg-white/10 text-white px-3 py-1 rounded-full font-bold text-xs inline-block mb-2">
+                  <div className="bg-white/10 text-white px-2.5 py-1 rounded-full font-bold text-[10px] sm:text-xs inline-block mb-1">
                     EP-02
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-white">
+                  <h2 className="text-lg sm:text-2xl md:text-3xl font-bold text-white leading-tight">
                     AI in Software Engineering: The Future is Here
                   </h2>
-                  <div className="flex items-center gap-4 mt-3 text-sm text-white/90">
-                    <div className="flex items-center gap-2">
-                      <Calendar size={16} />
-                      <span>December 27, 2025</span>
+                  <div className="flex flex-wrap items-center gap-3 mt-2 text-[11px] sm:text-sm text-white/80">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar size={14} />
+                      <span>Dec 27, 2025</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Clock size={16} />
-                      <span>1.5 hours</span>
+                    <div className="flex items-center gap-1.5">
+                      <Clock size={14} />
+                      <span>1.5 hrs</span>
                     </div>
                   </div>
                 </div>
+
                 <button
                   onClick={() => setSelectedEpisode(null)}
-                  className="bg-white/10 hover:bg-white/20 text-white p-2 rounded-full transition-colors"
+                  className="bg-white/10 hover:bg-white/20 text-white p-1.5 sm:p-2 rounded-full"
                 >
-                  <X size={24} />
+                  <X size={20} />
                 </button>
               </div>
 
-              {/* Modal Content */}
-              <div className="p-6 md:p-8 space-y-8">
-                {/* Speaker Info */}
-                <div className="bg-white/5 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6">
-                  <p className="text-xs text-gray-400 mb-3 uppercase tracking-wider">Featured Speaker</p>
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500/80 to-purple-600/80 rounded-full flex items-center justify-center text-white font-bold text-xl">
+              {/* ===== Content ===== */}
+              <div className="px-4 sm:px-6 md:px-8 py-5 sm:py-6 space-y-6 sm:space-y-8">
+                {/* Speaker */}
+                <div className="bg-white/5 border border-orange-400/20 rounded-lg sm:rounded-xl p-4 sm:p-5">
+                  <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-2">
+                    Featured Speaker
+                  </p>
+
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white font-bold text-base sm:text-lg">
                       KA
                     </div>
+
                     <div>
-                      <h3 className="text-xl font-bold text-white">Khushagra Agarwal</h3>
-                      <p className="text-purple-300">Co-founder @ Zryth Solutions</p>
-                      <p className="text-gray-400 text-sm mt-1">Alumnus & CEO of an AI Solutions Company</p>
+                      <h3 className="text-base sm:text-lg font-semibold text-white">
+                        Khushagra Agarwal
+                      </h3>
+                      <p className="text-orange-300 text-xs sm:text-sm">
+                        Co-founder @ Zryth Solutions
+                      </p>
+                      <p className="text-gray-400 text-xs mt-0.5">
+                        Alumnus & AI Startup CEO
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Event Overview */}
-                <div className="prose prose-invert max-w-none">
-                  <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                    <FileText className="text-purple-400" size={24} /> Event Overview
+                {/* Overview */}
+                <div>
+                  <h3 className="flex items-center gap-2 text-lg sm:text-xl font-semibold text-white mb-3">
+                    <FileText size={18} className="text-orange-400" />
+                    Event Overview
                   </h3>
-                  <p className="text-gray-300 leading-relaxed">
-                    The session featured Kushagra Agarwal, an alumnus and CEO of Zit Solutions, an AI solutions company.
-                    The talk focused on how Artificial Intelligence is transforming software engineering, the shifting role
-                    of engineers, and practical advice for students and aspiring founders.
+
+                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+                    This session explored how AI is reshaping software
+                    engineering — from faster development cycles to new
+                    challenges in debugging, architecture, and production
+                    systems. The speaker shared industry insights and advice for
+                    students and aspiring founders.
                   </p>
                 </div>
 
-                {/* Key Themes Section */}
-                <div className="space-y-6">
-                  <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                    <Key className="text-purple-400" size={24} /> Key Themes & Insights
+                {/* Themes */}
+                <div className="space-y-5 sm:space-y-6">
+                  <h3 className="flex items-center gap-2 text-lg sm:text-xl font-semibold text-white">
+                    <Key size={18} className="text-orange-400" />
+                    Key Themes & Insights
                   </h3>
 
-                  {/* Theme 1 */}
-                  <div className="bg-white/5 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6">
-                    <h4 className="text-xl font-bold text-purple-300 mb-4">
-                      1. The Shift from Writing to Reviewing
-                    </h4>
-                    <div className="space-y-3 text-gray-300">
-                      <div className="flex gap-3">
-                        <span className="text-purple-500 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Changing Landscape:</strong> The engineering role is shifting
-                          from writing raw code to reviewing AI-generated code and designing architectures.
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <span className="text-purple-500 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">The "Chaos" of Speed:</strong> While AI allows developers to
-                          build in 5 minutes what used to take hours, debugging can now take significantly longer if
-                          the developer does not understand the underlying code.
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <span className="text-purple-500 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Core Fundamentals:</strong> Despite AI's capabilities, core
-                          computer science concepts (Operating Systems, Databases, Networks, DSA) remain crucial.
-                          Engineers must understand how things work "under the hood" to effectively review and debug AI outputs.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  {/* Theme Card */}
+                  {[
+                    {
+                      title: "1. From Writing Code to Reviewing It",
+                      points: [
+                        "Engineers increasingly review AI-generated code instead of writing everything manually.",
+                        "Speed increases, but debugging suffers without strong fundamentals.",
+                        "Core CS subjects remain non-negotiable.",
+                      ],
+                    },
+                    {
+                      title: "2. AI Across the SDLC",
+                      points: [
+                        "Automated requirement summaries reduce miscommunication.",
+                        "Prompt-based UI & wireframe generation speeds prototyping.",
+                        "Humans still own HLD & LLD decisions.",
+                        "AI agents drastically cut testing time.",
+                      ],
+                    },
+                    {
+                      title: "3. Production Challenges",
+                      points: [
+                        "Debugging is still context-heavy and difficult for AI.",
+                        "Hallucinations require agentic workflows & tool usage.",
+                        "Smaller prompts often beat fine-tuning.",
+                      ],
+                    },
+                  ].map((theme, i) => (
+                    <div
+                      key={i}
+                      className="bg-white/5 border border-orange-400/20 rounded-lg sm:rounded-xl p-4 sm:p-5"
+                    >
+                      <h4 className="text-orange-300 font-semibold text-sm sm:text-base mb-3">
+                        {theme.title}
+                      </h4>
 
-                  {/* Theme 2 */}
-                  <div className="bg-white/5 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6">
-                    <h4 className="text-xl font-bold text-purple-300 mb-4">
-                      2. AI in the Software Development Lifecycle
-                    </h4>
-                    <div className="space-y-3 text-gray-300">
-                      <div className="flex gap-3">
-                        <span className="text-purple-400 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Requirements:</strong> AI tools can now automate note-taking
-                          and summarize client requirements, reducing human error in translation.
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <span className="text-purple-400 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Prototyping:</strong> Tools can generate wireframes and designs
-                          (e.g., Figma) from prompts, speeding up the initial design phase.
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <span className="text-purple-400 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Coding & Architecture:</strong> AI can handle boilerplate code
-                          and implementation, but humans must define the High-Level Design (HLD) and Low-Level Design (LLD)
-                          to ensure the system is scalable and correct.
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <span className="text-purple-400 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Testing:</strong> AI agents can automate testing (e.g., using
-                          frameworks like Playwright) by simulating user interactions, drastically reducing testing time.
-                        </div>
-                      </div>
+                      <ul className="space-y-2 text-gray-300 text-sm">
+                        {theme.points.map((point, j) => (
+                          <li key={j} className="flex gap-2">
+                            <span className="text-orange-400 mt-1">•</span>
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </div>
-
-                  {/* Theme 3 */}
-                  <div className="bg-white/5 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6">
-                    <h4 className="text-xl font-bold text-purple-300 mb-4">
-                      3. Challenges in Production
-                    </h4>
-                    <div className="space-y-3 text-gray-300">
-                      <div className="flex gap-3">
-                        <span className="text-purple-300 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Debugging:</strong> This remains a weak point for AI because
-                          it lacks the full business and code context required to understand complex interdependencies.
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <span className="text-purple-300 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Hallucinations & Limits:</strong> The speaker shared case
-                          studies where AI failed at specific tasks like mathematics or physics due to "hallucinations."
-                          The solution involved breaking problems into smaller chunks and using "Agentic AI" or external
-                          tools (like calculators) rather than relying on one large prompt.
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <span className="text-purple-300 mt-1">•</span>
-                        <div>
-                          <strong className="text-white">Context Window:</strong> Early attempts failed because prompts
-                          were too large; optimizing prompts is often more effective than fine-tuning models.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
-                {/* Event Pictures Placeholder */}
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-                    <Camera className="text-purple-400" size={24} /> Event Gallery
+                {/* Gallery */}
+                <div className="space-y-3">
+                  <h3 className="flex items-center gap-2 text-lg sm:text-xl font-semibold text-white">
+                    <Camera size={18} className="text-orange-400" />
+                    Event Gallery
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="overflow-hidden rounded-xl border border-gray-700">
-                      <img
-                        src={EventImg1}
-                        alt="Event Photo 1"
-                        className="w-full h-48 object-cover hover:scale-110 transition-transform duration-300"
-                      />
-                    </div>
-                    <div className="overflow-hidden rounded-xl border border-gray-700">
-                      <img
-                        src={EventImg2}
-                        alt="Event Photo 2"
-                        className="w-full h-48 object-cover hover:scale-110 transition-transform duration-300"
-                      />
-                    </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {[EventImg1, EventImg2].map((img, i) => (
+                      <div
+                        key={i}
+                        className="overflow-hidden rounded-lg border border-orange-700"
+                      >
+                        <img
+                          src={img}
+                          alt={`Event ${i + 1}`}
+                          className="w-full h-40 sm:h-48 object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

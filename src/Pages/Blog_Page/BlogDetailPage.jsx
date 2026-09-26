@@ -30,7 +30,7 @@ export const BlogDetailPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-tech-grid text-white">
+    <div className="min-h-screen text-white">
 
       {/* HERO */}
       <div className="relative h-96 sm:h-[500px] md:h-[600px] mb-12 overflow-hidden">

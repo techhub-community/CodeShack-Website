@@ -161,7 +161,15 @@ export const Event = () => {
 
   return (
     <section className="py-32 px-6 max-w-6xl mx-auto text-white">
-      <h2 className="text-5xl font-bold mb-20 text-center">EVENTS</h2>
+<div className="mb-16 text-center">
+  <p className="font-mono text-xs text-gray-500 mb-2">
+    systemctl status events.service
+  </p>
+  <h2 className="font-mono font-bold tracking-widest
+                 text-[clamp(1.5rem,4vw,3rem)] text-orange-400">
+    EVENTS
+  </h2>
+</div>
 
       <div className="space-y-32">
         {events.map((event, index) => (
