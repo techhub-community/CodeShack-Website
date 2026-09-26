@@ -2,23 +2,53 @@
  * CodeShack recruitment form -> Google Sheet bridge.
  *
  * Setup:
- * 1. Create a Google Sheet. Add a header row to the first sheet (tab 1):
- *      Timestamp | Name | USN | Branch | Year
+ * 1. Create a Google Sheet.
  * 2. Extensions > Apps Script, delete any boilerplate, paste this file's contents.
- * 3. Deploy > New deployment > type "Web app".
+ * 3. In the function dropdown (top toolbar) select "setupSheet", then click
+ *    Run once — this creates the "Sheet1" tab and header row for you.
+ *    (The header row is also created automatically on the first form
+ *    submission if you skip this step.)
+ * 4. Deploy > New deployment > type "Web app".
  *      - Execute as: Me
  *      - Who has access: Anyone
- * 4. Copy the resulting Web App URL and set it as VITE_GOOGLE_SCRIPT_URL
+ * 5. Copy the resulting Web App URL and set it as VITE_GOOGLE_SCRIPT_URL
  *    in the website's .env file.
- * 5. Re-run "Deploy > Manage deployments" and use "New version" any time
+ * 6. Re-run "Deploy > Manage deployments" and use "New version" any time
  *    you edit this script, otherwise the live URL keeps serving old code.
  */
 
 const SHEET_NAME = "Sheet1"; // change if your tab is named differently
+const HEADERS = ["Timestamp", "Name", "USN", "Branch", "Year"];
+
+/**
+ * Run this once from the Apps Script editor (select "setupSheet" in the
+ * function dropdown, then click Run) to create the header row. Safe to
+ * run more than once — it won't duplicate headers if they're already there.
+ */
+function setupSheet() {
+  const sheet = getOrCreateSheet();
+  const firstRow = sheet.getRange(1, 1, 1, HEADERS.length).getValues()[0];
+  const hasHeaders = HEADERS.every((h, i) => firstRow[i] === h);
+
+  if (!hasHeaders) {
+    sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
+    sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight("bold");
+    sheet.setFrozenRows(1);
+  }
+}
+
+function getOrCreateSheet() {
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  return spreadsheet.getSheetByName(SHEET_NAME) || spreadsheet.insertSheet(SHEET_NAME);
+}
 
 function doPost(e) {
   try {
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+    const sheet = getOrCreateSheet();
+    if (sheet.getLastRow() === 0) {
+      setupSheet();
+    }
+
     const params = e.parameter;
 
     const name = (params.name || "").toString().trim();

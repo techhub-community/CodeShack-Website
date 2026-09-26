@@ -3,14 +3,19 @@
 This connects the site's `/register` form to a Google Sheet using a free Apps Script Web App (no backend/server needed).
 
 ## 1. Create the sheet
-1. Create a new Google Sheet.
-2. In row 1 of the first tab, add headers: `Timestamp | Name | USN | Branch | Year`.
-3. Rename the tab if you like, but update `SHEET_NAME` in `Code.gs` to match (default is `Sheet1`).
+1. Create a new Google Sheet (any name).
 
 ## 2. Add the script
 1. In the Sheet: `Extensions > Apps Script`.
 2. Delete the default `Code.gs` contents and paste in this folder's `Code.gs`.
 3. Save the project (any name).
+4. In the toolbar's function dropdown, select **setupSheet**, then click **Run**.
+   The first time, Google will ask you to authorize the script — approve it.
+   This creates a `Sheet1` tab (if it doesn't exist) with a bold, frozen
+   header row: `Timestamp | Name | USN | Branch | Year`.
+   - You can skip this — `doPost` creates the header row automatically the
+     first time someone submits the form — but running it once means the
+     sheet looks right before any real submissions come in.
 
 ## 3. Deploy as a Web App
 1. Click `Deploy > New deployment`.

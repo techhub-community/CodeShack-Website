@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckCircle2,
-  Loader2,
   Terminal,
   Code2,
   Rocket,
@@ -57,7 +56,7 @@ const FieldLabel = ({ children }) => (
 
 export const Register = () => {
   const [form, setForm] = useState({ name: "", usn: "", branch: "", year: "" });
-  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+  const [status, setStatus] = useState("idle"); // idle | success | error
   const [touched, setTouched] = useState(false);
 
   const handleChange = (e) => {
@@ -67,7 +66,7 @@ export const Register = () => {
 
   const isComplete = form.name.trim() && form.usn.trim() && form.branch.trim() && form.year;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setTouched(true);
 
@@ -81,30 +80,28 @@ export const Register = () => {
       return;
     }
 
-    setStatus("submitting");
+    const body = new FormData();
+    body.append("name", form.name.trim());
+    body.append("usn", form.usn.trim().toUpperCase());
+    body.append("branch", form.branch.trim());
+    body.append("year", form.year);
 
-    try {
-      const body = new FormData();
-      body.append("name", form.name.trim());
-      body.append("usn", form.usn.trim().toUpperCase());
-      body.append("branch", form.branch.trim());
-      body.append("year", form.year);
-
-      // Apps Script web apps don't return usable CORS headers for fetch,
-      // so the request is sent "no-cors" and treated as fire-and-forget.
-      await fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body,
-      });
-
-      setStatus("success");
-      setForm({ name: "", usn: "", branch: "", year: "" });
-      setTouched(false);
-    } catch (err) {
+    // Apps Script round-trips take a couple of seconds (script boot + sheet
+    // write + redirect), and mode:"no-cors" makes the response opaque anyway
+    // (we can't read success/failure from it), so we don't await it — fire
+    // the request and let the UI move on immediately instead of stalling
+    // on Google's latency.
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body,
+    }).catch((err) => {
       console.error("Registration submit failed:", err);
-      setStatus("error");
-    }
+    });
+
+    setStatus("success");
+    setForm({ name: "", usn: "", branch: "", year: "" });
+    setTouched(false);
   };
 
   return (
@@ -280,19 +277,9 @@ export const Register = () => {
 
                   <button
                     type="submit"
-                    disabled={status === "submitting"}
-                    className="group w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-400 disabled:opacity-60 disabled:cursor-not-allowed text-black font-semibold font-mono rounded-lg py-3 transition shadow-[0_0_25px_rgba(249,115,22,0.25)] hover:shadow-[0_0_35px_rgba(249,115,22,0.45)]"
+                    className="group w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-400 text-black font-semibold font-mono rounded-lg py-3 transition shadow-[0_0_25px_rgba(249,115,22,0.25)] hover:shadow-[0_0_35px_rgba(249,115,22,0.45)]"
                   >
-                    {status === "submitting" ? (
-                      <>
-                        <Loader2 className="animate-spin" size={18} />
-                        running register --submit
-                      </>
-                    ) : (
-                      <>
-                        <span className="text-black/60">&gt;</span> run register --submit
-                      </>
-                    )}
+                    <span className="text-black/60">&gt;</span> run register --submit
                   </button>
                 </motion.form>
               )}
