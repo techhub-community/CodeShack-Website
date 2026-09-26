@@ -22,6 +22,8 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import TextType from "../../../assets/TextType";
 import collegeLogo from "../../../assets/collegeLogo.png";
 
@@ -56,6 +58,26 @@ export const Hero = () => {
             Sir M. Visvesvaraya Institute of Technology, Bengaluru
           </p>
 
+        </motion.div>
+
+        {/* Hiring banner */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="mb-6"
+        >
+          <Link
+            to="/register"
+            className="group inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/40 text-orange-400 hover:bg-orange-500/20 rounded-full px-4 py-1.5 text-sm font-medium transition"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500" />
+            </span>
+            CodeShack is hiring — come be a part of it!
+            <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+          </Link>
         </motion.div>
 
         {/* Terminal prompt */}

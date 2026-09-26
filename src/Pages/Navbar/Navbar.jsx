@@ -42,6 +42,13 @@ export const Navbar = () => {
             <Link to="/blogs" className={navLinkClasses("/blogs")}>
               Blogs
             </Link>
+
+            <Link
+              to="/register"
+              className="px-4 py-2 rounded-full bg-orange-500 text-black font-semibold hover:bg-orange-600 transition"
+            >
+              Join Us
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -80,6 +87,15 @@ export const Navbar = () => {
                          hover:bg-white/10 hover:text-white transition"
             >
               Blogs
+            </Link>
+
+            <Link
+              to="/register"
+              onClick={() => setIsMenuOpen(false)}
+              className="block px-4 py-2 rounded-lg bg-orange-500 text-black font-semibold text-center
+                         hover:bg-orange-600 transition"
+            >
+              Join Us
             </Link>
           </div>
         </div>
