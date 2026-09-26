@@ -15,6 +15,11 @@ const SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || "";
 
 const YEARS = ["2nd Year", "3rd Year", "4th Year"];
 
+const NAME_REGEX = /^[A-Za-z][A-Za-z .'-]{1,}$/;
+const USN_REGEX = /^1MV\d{2}[A-Z]{2}\d{3}$/i;
+const PHONE_REGEX = /^\d{10}$/;
+const BRANCH_REGEX = /^[A-Za-z][A-Za-z &.'-]{1,}$/;
+
 const PERKS = [
   { icon: Code2, text: "Real projects, not just theory" },
   { icon: Rocket, text: "Hackathons & build sprints" },
@@ -64,9 +69,11 @@ export const Register = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const isValidPhone = /^\d{10}$/.test(form.phone.trim());
-  const isComplete =
-    form.name.trim() && form.usn.trim() && isValidPhone && form.branch.trim() && form.year;
+  const isValidName = NAME_REGEX.test(form.name.trim());
+  const isValidUsn = USN_REGEX.test(form.usn.trim());
+  const isValidPhone = PHONE_REGEX.test(form.phone.trim());
+  const isValidBranch = BRANCH_REGEX.test(form.branch.trim());
+  const isComplete = isValidName && isValidUsn && isValidPhone && isValidBranch && form.year;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -217,8 +224,8 @@ export const Register = () => {
                       placeholder="e.g. Ada Lovelace"
                       className="w-full rounded-lg bg-white/[0.04] border border-white/10 px-4 py-2.5 text-white placeholder-gray-600 font-mono text-sm focus:outline-none focus:border-orange-500/60 focus:ring-1 focus:ring-orange-500/60 transition"
                     />
-                    {touched && !form.name.trim() && (
-                      <p className="text-red-400 text-xs mt-1 font-mono">// required</p>
+                    {touched && !isValidName && (
+                      <p className="text-red-400 text-xs mt-1 font-mono">// enter a valid name</p>
                     )}
                   </div>
 
@@ -233,8 +240,8 @@ export const Register = () => {
                       placeholder="1MV23CS042"
                       className="w-full rounded-lg bg-white/[0.04] border border-white/10 px-4 py-2.5 text-white placeholder-gray-600 font-mono text-sm uppercase focus:outline-none focus:border-orange-500/60 focus:ring-1 focus:ring-orange-500/60 transition"
                     />
-                    {touched && !form.usn.trim() && (
-                      <p className="text-red-400 text-xs mt-1 font-mono">// required</p>
+                    {touched && !isValidUsn && (
+                      <p className="text-red-400 text-xs mt-1 font-mono">// format: 1MV23CS042</p>
                     )}
                   </div>
 
@@ -266,8 +273,8 @@ export const Register = () => {
                       placeholder="e.g. Computer Science"
                       className="w-full rounded-lg bg-white/[0.04] border border-white/10 px-4 py-2.5 text-white placeholder-gray-600 font-mono text-sm focus:outline-none focus:border-orange-500/60 focus:ring-1 focus:ring-orange-500/60 transition"
                     />
-                    {touched && !form.branch.trim() && (
-                      <p className="text-red-400 text-xs mt-1 font-mono">// required</p>
+                    {touched && !isValidBranch && (
+                      <p className="text-red-400 text-xs mt-1 font-mono">// enter a valid branch name</p>
                     )}
                   </div>
 
