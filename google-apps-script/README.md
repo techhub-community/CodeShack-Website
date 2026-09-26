@@ -12,10 +12,15 @@ This connects the site's `/register` form to a Google Sheet using a free Apps Sc
 4. In the toolbar's function dropdown, select **setupSheet**, then click **Run**.
    The first time, Google will ask you to authorize the script — approve it.
    This creates a `Sheet1` tab (if it doesn't exist) with a bold, frozen
-   header row: `Timestamp | Name | USN | Branch | Year`.
+   header row: `Timestamp | Name | USN | Phone | Branch | Year`.
    - You can skip this — `doPost` creates the header row automatically the
      first time someone submits the form — but running it once means the
      sheet looks right before any real submissions come in.
+   - If you already had a sheet from before the Phone field was added,
+     re-run **setupSheet** once after updating the script — it'll rewrite
+     the header row to include Phone. Any rows submitted before that will
+     still only have 5 columns of data, so they'll look shifted; only new
+     submissions land under the correct columns.
 
 ## 3. Deploy as a Web App
 1. Click `Deploy > New deployment`.
@@ -42,8 +47,9 @@ otherwise the live URL keeps serving the old code.
 
 ## Notes
 - The frontend posts with `mode: "no-cors"` since Apps Script doesn't return
-  CORS headers `fetch` can read — the request still lands in the sheet, but the
-  app can't read back a JSON response, so we optimistically show success after
-  the request completes without a network error.
+  CORS headers `fetch` can read, so the response is opaque either way. Apps
+  Script round-trips also take a couple of seconds (script boot + sheet write
+  + redirect), so the form doesn't wait for the request to finish — it fires
+  the POST in the background and shows success immediately.
 - Test the deployed endpoint directly by opening its URL in a browser — you
   should see `{"result":"ok","message":"CodeShack registration endpoint is live."}`.

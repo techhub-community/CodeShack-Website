@@ -18,7 +18,7 @@
  */
 
 const SHEET_NAME = "Sheet1"; // change if your tab is named differently
-const HEADERS = ["Timestamp", "Name", "USN", "Branch", "Year"];
+const HEADERS = ["Timestamp", "Name", "USN", "Phone", "Branch", "Year"];
 
 /**
  * Run this once from the Apps Script editor (select "setupSheet" in the
@@ -35,6 +35,10 @@ function setupSheet() {
     sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight("bold");
     sheet.setFrozenRows(1);
   }
+
+  // Keep phone numbers as plain text so Sheets doesn't reformat/round them.
+  const phoneColumn = HEADERS.indexOf("Phone") + 1;
+  sheet.getRange(1, phoneColumn, sheet.getMaxRows(), 1).setNumberFormat("@");
 }
 
 function getOrCreateSheet() {
@@ -53,14 +57,15 @@ function doPost(e) {
 
     const name = (params.name || "").toString().trim();
     const usn = (params.usn || "").toString().trim().toUpperCase();
+    const phone = (params.phone || "").toString().trim();
     const branch = (params.branch || "").toString().trim();
     const year = (params.year || "").toString().trim();
 
-    if (!name || !usn || !branch || !year) {
+    if (!name || !usn || !phone || !branch || !year) {
       return jsonResponse({ result: "error", message: "Missing required field(s)." });
     }
 
-    sheet.appendRow([new Date(), name, usn, branch, year]);
+    sheet.appendRow([new Date(), name, usn, phone, branch, year]);
 
     return jsonResponse({ result: "success" });
   } catch (err) {

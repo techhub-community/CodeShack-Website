@@ -55,7 +55,7 @@ const FieldLabel = ({ children }) => (
 );
 
 export const Register = () => {
-  const [form, setForm] = useState({ name: "", usn: "", branch: "", year: "" });
+  const [form, setForm] = useState({ name: "", usn: "", phone: "", branch: "", year: "" });
   const [status, setStatus] = useState("idle"); // idle | success | error
   const [touched, setTouched] = useState(false);
 
@@ -64,7 +64,9 @@ export const Register = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const isComplete = form.name.trim() && form.usn.trim() && form.branch.trim() && form.year;
+  const isValidPhone = /^\d{10}$/.test(form.phone.trim());
+  const isComplete =
+    form.name.trim() && form.usn.trim() && isValidPhone && form.branch.trim() && form.year;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -83,6 +85,7 @@ export const Register = () => {
     const body = new FormData();
     body.append("name", form.name.trim());
     body.append("usn", form.usn.trim().toUpperCase());
+    body.append("phone", form.phone.trim());
     body.append("branch", form.branch.trim());
     body.append("year", form.year);
 
@@ -100,7 +103,7 @@ export const Register = () => {
     });
 
     setStatus("success");
-    setForm({ name: "", usn: "", branch: "", year: "" });
+    setForm({ name: "", usn: "", phone: "", branch: "", year: "" });
     setTouched(false);
   };
 
@@ -232,6 +235,23 @@ export const Register = () => {
                     />
                     {touched && !form.usn.trim() && (
                       <p className="text-red-400 text-xs mt-1 font-mono">// required</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <FieldLabel>enter_phone</FieldLabel>
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      inputMode="numeric"
+                      value={form.phone}
+                      onChange={handleChange}
+                      placeholder="9876543210"
+                      className="w-full rounded-lg bg-white/[0.04] border border-white/10 px-4 py-2.5 text-white placeholder-gray-600 font-mono text-sm focus:outline-none focus:border-orange-500/60 focus:ring-1 focus:ring-orange-500/60 transition"
+                    />
+                    {touched && !isValidPhone && (
+                      <p className="text-red-400 text-xs mt-1 font-mono">// enter a valid 10-digit number</p>
                     )}
                   </div>
 
