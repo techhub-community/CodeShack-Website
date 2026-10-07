@@ -7,11 +7,15 @@ import {
   Rocket,
   Users,
   Award,
+  Lock,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import TextType from "../../assets/TextType";
 
 const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/GJGVtjhGgMbL0P530GfYgP?mode=gi_t";
+
+// Flip this back to true to reopen the form next recruitment cycle.
+const REGISTRATIONS_OPEN = false;
 
 // Deployed Google Apps Script Web App URL (see google-apps-script/README.md for setup).
 const SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || "";
@@ -175,11 +179,40 @@ export const Register = () => {
 
         {/* Right form panel */}
         <div className="lg:col-span-3 flex flex-col">
-          <WindowChrome label="register.sh — recruitment-form" />
+          <WindowChrome label={REGISTRATIONS_OPEN ? "register.sh — recruitment-form" : "register.sh — closed"} />
 
           <div className="p-6 sm:p-8">
             <AnimatePresence mode="wait">
-              {status === "success" ? (
+              {!REGISTRATIONS_OPEN ? (
+                <motion.div
+                  key="closed"
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="flex flex-col items-center gap-3 py-12 text-center"
+                >
+                  <div className="w-14 h-14 rounded-full bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400">
+                    <Lock size={22} />
+                  </div>
+                  <p className="font-mono text-sm text-orange-400">[CLOSED] registrations_closed_for_this_year</p>
+                  <p className="text-lg font-semibold">We're closed for this year!</p>
+                  <p className="text-gray-400 text-sm max-w-sm">
+                    Recruitment for this cycle has wrapped up — thanks to everyone who applied.
+                    If you missed the window, don't sweat it: you're always welcome to just show
+                    up for the interview rounds when we announce them. We'd love to meet you anyway.
+                  </p>
+
+                  <a
+                    href={WHATSAPP_GROUP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 flex items-center gap-2 bg-green-500 hover:bg-green-400 text-black font-semibold font-mono rounded-lg px-5 py-2.5 transition shadow-[0_0_25px_rgba(34,197,94,0.25)] hover:shadow-[0_0_35px_rgba(34,197,94,0.45)]"
+                  >
+                    <FaWhatsapp size={18} />
+                    Stay in the loop on WhatsApp
+                  </a>
+                </motion.div>
+              ) : status === "success" ? (
                 <motion.div
                   key="success"
                   initial={{ opacity: 0, scale: 0.96 }}
