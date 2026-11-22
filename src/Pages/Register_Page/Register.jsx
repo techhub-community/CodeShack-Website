@@ -9,11 +9,15 @@ import {
   Rocket,
   Users,
   Award,
-  Sparkles,
-  ArrowRight,
-  RotateCcw,
+  Lock,
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import TextType from "../../assets/TextType";
+
+const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/GJGVtjhGgMbL0P530GfYgP?mode=gi_t";
+
+// Flip this back to true to reopen the form next recruitment cycle.
+const REGISTRATIONS_OPEN = false;
 
 // Deployed Google Apps Script Web App URL (see google-apps-script/README.md for setup).
 const SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbz45EihKkyGpETX4-Ot_kUkSJ0ragAmT7iWJYooYjsNIduQ-yulGxQTMUcPgKKXa8eZ/exec";
@@ -180,11 +184,40 @@ export const Register = () => {
 
         {/* Right form / success panel */}
         <div className="lg:col-span-3 flex flex-col">
-          <WindowChrome label={status === "success" ? "success.sh — registered" : "techvistara-register.sh — registration-form"} />
+          <WindowChrome label={REGISTRATIONS_OPEN ? "register.sh — recruitment-form" : "register.sh — closed"} />
 
           <div className="p-6 sm:p-8 flex-1 flex flex-col justify-center">
             <AnimatePresence mode="wait">
-              {status === "success" ? (
+              {!REGISTRATIONS_OPEN ? (
+                <motion.div
+                  key="closed"
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="flex flex-col items-center gap-3 py-12 text-center"
+                >
+                  <div className="w-14 h-14 rounded-full bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400">
+                    <Lock size={22} />
+                  </div>
+                  <p className="font-mono text-sm text-orange-400">[CLOSED] registrations_closed_for_this_year</p>
+                  <p className="text-lg font-semibold">We're closed for this year!</p>
+                  <p className="text-gray-400 text-sm max-w-sm">
+                    Recruitment for this cycle has wrapped up — thanks to everyone who applied.
+                    If you missed the window, don't sweat it: you're always welcome to just show
+                    up for the interview rounds when we announce them. We'd love to meet you anyway.
+                  </p>
+
+                  <a
+                    href={WHATSAPP_GROUP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 flex items-center gap-2 bg-green-500 hover:bg-green-400 text-black font-semibold font-mono rounded-lg px-5 py-2.5 transition shadow-[0_0_25px_rgba(34,197,94,0.25)] hover:shadow-[0_0_35px_rgba(34,197,94,0.45)]"
+                  >
+                    <FaWhatsapp size={18} />
+                    Stay in the loop on WhatsApp
+                  </a>
+                </motion.div>
+              ) : status === "success" ? (
                 <motion.div
                   key="success"
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -214,47 +247,23 @@ export const Register = () => {
                     You have successfully registered for <span className="text-orange-400 font-semibold">TechVistara 2026</span>. We've recorded your entry and look forward to having you!
                   </p>
 
-                  {/* Registered Details Ticket Card */}
-                  {registeredData && (
-                    <div className="w-full max-w-md rounded-xl bg-white/[0.03] border border-white/10 p-4 font-mono text-left text-xs mb-8 space-y-2.5">
-                      <div className="flex justify-between items-center pb-2 border-b border-white/10 text-gray-400">
-                        <span>EVENT: TECHVISTARA_2026</span>
-                        <span className="text-green-400">[VERIFIED]</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-500">Attendee:</span>
-                        <span className="text-white font-semibold">{registeredData.name}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-500">USN:</span>
-                        <span className="text-orange-400 font-semibold">{registeredData.usn}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-500">Branch:</span>
-                        <span className="text-gray-300">{registeredData.branch}</span>
-                      </div>
-                    </div>
-                  )}
+                  <a
+                    href={WHATSAPP_GROUP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 flex items-center gap-2 bg-green-500 hover:bg-green-400 text-black font-semibold font-mono rounded-lg px-5 py-2.5 transition shadow-[0_0_25px_rgba(34,197,94,0.25)] hover:shadow-[0_0_35px_rgba(34,197,94,0.45)]"
+                  >
+                    <FaWhatsapp size={18} />
+                    Join our WhatsApp group
+                  </a>
 
-                  {/* Actions */}
-                  <div className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md">
-                    <Link
-                      to="/"
-                      className="w-full sm:flex-1 flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-400 text-black font-semibold font-mono text-sm rounded-lg py-2.5 transition shadow-[0_0_20px_rgba(249,115,22,0.3)]"
-                    >
-                      <span>Return Home</span>
-                      <ArrowRight size={15} />
-                    </Link>
-
-                    <button
-                      type="button"
-                      onClick={() => setStatus("idle")}
-                      className="w-full sm:flex-1 flex items-center justify-center gap-2 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-gray-300 hover:text-white font-mono text-sm rounded-lg py-2.5 transition"
-                    >
-                      <RotateCcw size={14} />
-                      <span>Register Another</span>
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setStatus("idle")}
+                    className="mt-2 text-orange-400 text-sm underline underline-offset-4"
+                  >
+                    Submit another response
+                  </button>
                 </motion.div>
               ) : (
                 <motion.form

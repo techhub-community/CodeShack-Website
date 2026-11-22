@@ -1,18 +1,42 @@
 /**
  * CodeShack Form -> Google Sheet bridge.
  *
- * Configured columns: Timestamp, Name, USN, Branch, Questions and Queries
- * Rejects duplicate USN submissions.
+ * Each role gets its own tab (e.g. "Design", "Technical") instead of one
+ * shared tab, so recruiters for each role only see their own applicants.
+ *
+ * Setup:
+ * 1. Create a Google Sheet.
+ * 2. Extensions > Apps Script, delete any boilerplate, paste this file's contents.
+ * 3. In the function dropdown (top toolbar) select "setupSheet", then click
+ *    Run once — this creates one tab per role in ROLES below, each with its
+ *    own header row. (Tabs are also created automatically as submissions
+ *    for that role come in, if you skip this step.)
+ * 4. Deploy > New deployment > type "Web app".
+ *      - Execute as: Me
+ *      - Who has access: Anyone
+ * 5. Copy the resulting Web App URL and set it as VITE_GOOGLE_SCRIPT_URL
+ *    in the website's .env file.
+ * 6. Re-run "Deploy > Manage deployments" and use "New version" any time
+ *    you edit this script, otherwise the live URL keeps serving old code.
  */
 
-const SHEET_NAME = "Sheet1";
-const HEADERS = ["Timestamp", "Name", "USN", "Branch", "Questions and Queries"];
+// Must stay in sync with ROLES in src/Pages/Register_Page/Register.jsx —
+// each entry here becomes its own sheet tab, named exactly as listed.
+const ROLES = ["Video Editing", "Design", "Social Media", "Technical", "Manager"];
+const HEADERS = ["Timestamp", "Name", "USN", "Phone", "Branch", "Year"];
 
 /**
- * Run setupSheet once from the Apps Script editor toolbar.
+ * Run this once from the Apps Script editor (select "setupSheet" in the
+ * function dropdown, then click Run) to create a tab + header row per role.
+ * Safe to run more than once — it won't duplicate headers if they're
+ * already there.
  */
 function setupSheet() {
-  const sheet = getOrCreateSheet();
+  ROLES.forEach(setupRoleSheet);
+}
+
+function setupRoleSheet(role) {
+  const sheet = getOrCreateSheet(role);
   const firstRow = sheet.getRange(1, 1, 1, HEADERS.length).getValues()[0];
   const hasHeaders = HEADERS.every((h, i) => firstRow[i] === h);
 
@@ -22,14 +46,16 @@ function setupSheet() {
     sheet.setFrozenRows(1);
   }
 
-  // Ensure USN column is treated as plain text to avoid formatting glitches
-  const usnColumn = HEADERS.indexOf("USN") + 1;
-  sheet.getRange(1, usnColumn, sheet.getMaxRows(), 1).setNumberFormat("@");
+  // Keep phone numbers as plain text so Sheets doesn't reformat/round them.
+  const phoneColumn = HEADERS.indexOf("Phone") + 1;
+  sheet.getRange(1, phoneColumn, sheet.getMaxRows(), 1).setNumberFormat("@");
+
+  return sheet;
 }
 
-function getOrCreateSheet() {
+function getOrCreateSheet(sheetName) {
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  return spreadsheet.getSheetByName(SHEET_NAME) || spreadsheet.insertSheet(SHEET_NAME);
+  return spreadsheet.getSheetByName(sheetName) || spreadsheet.insertSheet(sheetName);
 }
 
 function doPost(e) {
@@ -43,33 +69,7 @@ function doPost(e) {
   }
 
   try {
-    const sheet = getOrCreateSheet();
-    if (sheet.getLastRow() === 0) {
-      setupSheet();
-    }
-
-    let params = (e && e.parameter) ? Object.assign({}, e.parameter) : {};
-
-    // Fallback: If e.parameter is empty or missing fields, parse from postData.contents
-    if ((!params.name || !params.usn) && e && e.postData && e.postData.contents) {
-      try {
-        const parsedJson = JSON.parse(e.postData.contents);
-        params = Object.assign(params, parsedJson);
-      } catch (_) {
-        try {
-          const raw = e.postData.contents;
-          const kvs = raw.split('&');
-          kvs.forEach(function(pair) {
-            const parts = pair.split('=');
-            if (parts.length >= 2) {
-              const k = decodeURIComponent(parts[0].replace(/\+/g, ' '));
-              const v = decodeURIComponent(parts.slice(1).join('=').replace(/\+/g, ' '));
-              if (!params[k]) params[k] = v;
-            }
-          });
-        } catch (__) {}
-      }
-    }
+    const params = e.parameter;
 
     const name = (params.name || "").toString().trim();
     const usn = (params.usn || "").toString().trim().toUpperCase();
@@ -95,7 +95,12 @@ function doPost(e) {
       }
     }
 
-    sheet.appendRow([new Date(), name, usn, branch, questionsAndQueries]);
+    if (ROLES.indexOf(role) === -1) {
+      return jsonResponse({ result: "error", message: "Unknown role." });
+    }
+
+    const sheet = setupRoleSheet(role);
+    sheet.appendRow([new Date(), name, usn, phone, branch, year]);
 
     return jsonResponse({ result: "success" });
   } catch (err) {
