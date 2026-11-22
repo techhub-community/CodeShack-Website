@@ -53,7 +53,6 @@ export const Register = () => {
     branch: "",
     questionsAndQueries: "",
   });
-  const [registeredData, setRegisteredData] = useState(null);
   const [status, setStatus] = useState("idle"); // idle | submitting | success | duplicate | error
   const [errorMessage, setErrorMessage] = useState("");
   const [touched, setTouched] = useState(false);
@@ -102,13 +101,6 @@ export const Register = () => {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: body.toString(),
-      });
-
-      // Save user submission details for success screen
-      setRegisteredData({
-        name: submittedName,
-        usn: submittedUsn,
-        branch: submittedBranch,
       });
 
       setStatus("success");
