@@ -1,29 +1,15 @@
 /**
- * CodeShack recruitment form -> Google Sheet bridge.
+ * CodeShack Form -> Google Sheet bridge.
  *
- * Setup:
- * 1. Create a Google Sheet.
- * 2. Extensions > Apps Script, delete any boilerplate, paste this file's contents.
- * 3. In the function dropdown (top toolbar) select "setupSheet", then click
- *    Run once — this creates the "Sheet1" tab and header row for you.
- *    (The header row is also created automatically on the first form
- *    submission if you skip this step.)
- * 4. Deploy > New deployment > type "Web app".
- *      - Execute as: Me
- *      - Who has access: Anyone
- * 5. Copy the resulting Web App URL and set it as VITE_GOOGLE_SCRIPT_URL
- *    in the website's .env file.
- * 6. Re-run "Deploy > Manage deployments" and use "New version" any time
- *    you edit this script, otherwise the live URL keeps serving old code.
+ * Configured columns: Timestamp, Name, USN, Branch, Questions and Queries
+ * Rejects duplicate USN submissions.
  */
 
-const SHEET_NAME = "Sheet1"; // change if your tab is named differently
-const HEADERS = ["Timestamp", "Name", "USN", "Phone", "Branch", "Year", "Role"];
+const SHEET_NAME = "Sheet1";
+const HEADERS = ["Timestamp", "Name", "USN", "Branch", "Questions and Queries"];
 
 /**
- * Run this once from the Apps Script editor (select "setupSheet" in the
- * function dropdown, then click Run) to create the header row. Safe to
- * run more than once — it won't duplicate headers if they're already there.
+ * Run setupSheet once from the Apps Script editor toolbar.
  */
 function setupSheet() {
   const sheet = getOrCreateSheet();
@@ -36,9 +22,9 @@ function setupSheet() {
     sheet.setFrozenRows(1);
   }
 
-  // Keep phone numbers as plain text so Sheets doesn't reformat/round them.
-  const phoneColumn = HEADERS.indexOf("Phone") + 1;
-  sheet.getRange(1, phoneColumn, sheet.getMaxRows(), 1).setNumberFormat("@");
+  // Ensure USN column is treated as plain text to avoid formatting glitches
+  const usnColumn = HEADERS.indexOf("USN") + 1;
+  sheet.getRange(1, usnColumn, sheet.getMaxRows(), 1).setNumberFormat("@");
 }
 
 function getOrCreateSheet() {
@@ -47,35 +33,59 @@ function getOrCreateSheet() {
 }
 
 function doPost(e) {
+  // Use LockService to prevent race conditions during concurrent submissions
+  const lock = LockService.getScriptLock();
+  try {
+    // Wait up to 10 seconds for concurrent requests
+    lock.waitLock(10000);
+  } catch (lockError) {
+    return jsonResponse({ result: "error", message: "Server is busy. Please try again." });
+  }
+
   try {
     const sheet = getOrCreateSheet();
     if (sheet.getLastRow() === 0) {
       setupSheet();
     }
 
-    const params = e.parameter;
+    const params = (e && e.parameter) ? e.parameter : {};
 
     const name = (params.name || "").toString().trim();
     const usn = (params.usn || "").toString().trim().toUpperCase();
-    const phone = (params.phone || "").toString().trim();
     const branch = (params.branch || "").toString().trim();
-    const year = (params.year || "").toString().trim();
-    const role = (params.role || "").toString().trim();
+    const questionsAndQueries = (params.questionsAndQueries || params.query || "").toString().trim();
 
-    if (!name || !usn || !phone || !branch || !year || !role) {
-      return jsonResponse({ result: "error", message: "Missing required field(s)." });
+    if (!name || !usn || !branch) {
+      return jsonResponse({ result: "error", message: "Missing required fields (name, usn, branch)." });
     }
 
-    sheet.appendRow([new Date(), name, usn, phone, branch, year, role]);
+    // Check for duplicate USNs
+    const lastRow = sheet.getLastRow();
+    if (lastRow > 1) {
+      const usnColumnIndex = HEADERS.indexOf("USN") + 1;
+      const existingUsns = sheet.getRange(2, usnColumnIndex, lastRow - 1, 1).getValues().flat();
+      const isDuplicate = existingUsns.some(val => val.toString().trim().toUpperCase() === usn);
+
+      if (isDuplicate) {
+        return jsonResponse({
+          result: "duplicate",
+          message: "A submission with this USN (" + usn + ") already exists."
+        });
+      }
+    }
+
+    sheet.appendRow([new Date(), name, usn, branch, questionsAndQueries]);
 
     return jsonResponse({ result: "success" });
   } catch (err) {
     return jsonResponse({ result: "error", message: err.message });
+  } finally {
+    lock.releaseLock();
   }
 }
 
 function doGet() {
-  return jsonResponse({ result: "ok", message: "CodeShack registration endpoint is live." });
+  return jsonResponse({ result: "ok", message: "CodeShack registration/query endpoint is live." });
 }
 
 function jsonResponse(obj) {
