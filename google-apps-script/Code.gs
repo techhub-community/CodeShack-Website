@@ -1,5 +1,5 @@
 /**
- * CodeShack recruitment form -> Google Sheet bridge.
+ * CodeShack Form -> Google Sheet bridge.
  *
  * Each role gets its own tab (e.g. "Design", "Technical") instead of one
  * shared tab, so recruiters for each role only see their own applicants.
@@ -59,18 +59,40 @@ function getOrCreateSheet(sheetName) {
 }
 
 function doPost(e) {
+  // Use LockService to prevent race conditions during concurrent submissions
+  const lock = LockService.getScriptLock();
+  try {
+    // Wait up to 10 seconds for concurrent requests
+    lock.waitLock(10000);
+  } catch (lockError) {
+    return jsonResponse({ result: "error", message: "Server is busy. Please try again." });
+  }
+
   try {
     const params = e.parameter;
 
     const name = (params.name || "").toString().trim();
     const usn = (params.usn || "").toString().trim().toUpperCase();
-    const phone = (params.phone || "").toString().trim();
     const branch = (params.branch || "").toString().trim();
-    const year = (params.year || "").toString().trim();
-    const role = (params.role || "").toString().trim();
+    const questionsAndQueries = (params.questionsAndQueries || params.query || "").toString().trim();
 
-    if (!name || !usn || !phone || !branch || !year || !role) {
-      return jsonResponse({ result: "error", message: "Missing required field(s)." });
+    if (!name || !usn || !branch) {
+      return jsonResponse({ result: "error", message: "Missing required fields (name, usn, branch)." });
+    }
+
+    // Check for duplicate USNs
+    const lastRow = sheet.getLastRow();
+    if (lastRow > 1) {
+      const usnColumnIndex = HEADERS.indexOf("USN") + 1;
+      const existingUsns = sheet.getRange(2, usnColumnIndex, lastRow - 1, 1).getValues().flat();
+      const isDuplicate = existingUsns.some(val => val.toString().trim().toUpperCase() === usn);
+
+      if (isDuplicate) {
+        return jsonResponse({
+          result: "duplicate",
+          message: "A submission with this USN (" + usn + ") already exists."
+        });
+      }
     }
 
     if (ROLES.indexOf(role) === -1) {
@@ -83,11 +105,13 @@ function doPost(e) {
     return jsonResponse({ result: "success" });
   } catch (err) {
     return jsonResponse({ result: "error", message: err.message });
+  } finally {
+    lock.releaseLock();
   }
 }
 
 function doGet() {
-  return jsonResponse({ result: "ok", message: "CodeShack registration endpoint is live." });
+  return jsonResponse({ result: "ok", message: "CodeShack registration/query endpoint is live." });
 }
 
 function jsonResponse(obj) {
