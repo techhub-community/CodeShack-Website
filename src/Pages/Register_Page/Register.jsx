@@ -83,7 +83,7 @@ export const Register = () => {
     const submittedUsn = form.usn.trim().toUpperCase();
     const submittedBranch = form.branch.trim();
 
-    const body = new FormData();
+    const body = new URLSearchParams();
     body.append("name", submittedName);
     body.append("usn", submittedUsn);
     body.append("branch", submittedBranch);
@@ -94,7 +94,10 @@ export const Register = () => {
       await fetch(SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
-        body,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: body.toString(),
       });
 
       // Save user submission details for success screen

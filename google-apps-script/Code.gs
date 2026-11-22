@@ -48,7 +48,28 @@ function doPost(e) {
       setupSheet();
     }
 
-    const params = (e && e.parameter) ? e.parameter : {};
+    let params = (e && e.parameter) ? Object.assign({}, e.parameter) : {};
+
+    // Fallback: If e.parameter is empty or missing fields, parse from postData.contents
+    if ((!params.name || !params.usn) && e && e.postData && e.postData.contents) {
+      try {
+        const parsedJson = JSON.parse(e.postData.contents);
+        params = Object.assign(params, parsedJson);
+      } catch (_) {
+        try {
+          const raw = e.postData.contents;
+          const kvs = raw.split('&');
+          kvs.forEach(function(pair) {
+            const parts = pair.split('=');
+            if (parts.length >= 2) {
+              const k = decodeURIComponent(parts[0].replace(/\+/g, ' '));
+              const v = decodeURIComponent(parts.slice(1).join('=').replace(/\+/g, ' '));
+              if (!params[k]) params[k] = v;
+            }
+          });
+        } catch (__) {}
+      }
+    }
 
     const name = (params.name || "").toString().trim();
     const usn = (params.usn || "").toString().trim().toUpperCase();
