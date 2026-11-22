@@ -86,7 +86,7 @@ export const Hero = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500" />
             </span>
-            CodeShack is hiring — come be a part of it!
+            Register for TechVistara 2026
             <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
           </Link>
         </motion.div>
