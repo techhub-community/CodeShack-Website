@@ -9,7 +9,7 @@ export const EventsTimeline = ({ events }) => {
       <h2 className="text-5xl font-bold text-center mb-24">EVENTS</h2>
 
       <div className="relative border-l border-orange-500/40">
-        {events.map((event, i) => (
+        {events.map((event) => (
           <motion.div
             key={event.id}
             initial={{ opacity: 0, y: 60 }}

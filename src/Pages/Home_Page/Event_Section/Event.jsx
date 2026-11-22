@@ -8,52 +8,52 @@ import techvistaraImg from "../../../assets/Techvistara.jpg";
 import codecafeImg from "../../../assets/CodeCafe.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
+const events = [
+  {
+    id: 1,
+    slug: "hacknocturne",
+    name: "HackNocturne",
+    number: 0,
+    image: HacknocturneImg,
+    description:
+      "HackNocturne is CodeShack's flagship annual inter-college hackathon where students participate in a 24-hour non-stop coding challenge.",
+    buttonText: "VIEW DETAILS"
+  },
+  {
+    id: 2,
+    slug: "tech-vistara",
+    name: "Tech Vistara",
+    number: 1,
+    image: techvistaraImg,
+    description:
+      "Orientation program designed to introduce freshers to tech culture.",
+    buttonText: "LEARN MORE"
+  },
+  {
+    id: 3,
+    slug: "codecafe",
+    name: "CodeCafe",
+    number: 2,
+    image: codecafeImg,
+    description:
+      "Webinar and talk series on technology, placements, and careers.",
+    buttonText: "EXPLORE"
+  },
+  {
+    id: 4,
+    slug: "csoc",
+    name: "CSoC (CodeShack Summer of Code)",
+    number: 3,
+    image: csocImg,
+    description:
+      "A structured summer learning program focused on real-world skills.",
+    buttonText: "JOIN NOW"
+  }
+];
+
 export const Event = () => {
   const navigate = useNavigate();
   const cardsRef = useRef([]);
-
-  const events = [
-    {
-      id: 1,
-      slug: "hacknocturne",
-      name: "HackNocturne",
-      number: 0,
-      image: HacknocturneImg,
-      description:
-        "HackNocturne is CodeShack's flagship annual inter-college hackathon where students participate in a 24-hour non-stop coding challenge.",
-      buttonText: "VIEW DETAILS"
-    },
-    {
-      id: 2,
-      slug: "tech-vistara",
-      name: "Tech Vistara",
-      number: 1,
-      image: techvistaraImg,
-      description:
-        "Orientation program designed to introduce freshers to tech culture.",
-      buttonText: "LEARN MORE"
-    },
-    {
-      id: 3,
-      slug: "codecafe",
-      name: "CodeCafe",
-      number: 2,
-      image: codecafeImg,
-      description:
-        "Webinar and talk series on technology, placements, and careers.",
-      buttonText: "EXPLORE"
-    },
-    {
-      id: 4,
-      slug: "csoc",
-      name: "CSoC (CodeShack Summer of Code)",
-      number: 3,
-      image: csocImg,
-      description:
-        "A structured summer learning program focused on real-world skills.",
-      buttonText: "JOIN NOW"
-    }
-  ];
 
   useEffect(() => {
     cardsRef.current.forEach((card, index) => {

@@ -6,7 +6,6 @@ import {
   FaDiscord,
   FaWhatsapp,
 } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import Codeshack from "../../../assets/CodeShack.png";
 
@@ -31,10 +30,12 @@ const CommandMenu = ({ open, onClose, title, links }) => {
 
     window.addEventListener("scroll", closeOnScroll, { passive: true });
     window.addEventListener("keydown", closeOnEsc);
+    window.addEventListener("mousedown", closeOnOutsideClick);
 
     return () => {
       window.removeEventListener("scroll", closeOnScroll);
       window.removeEventListener("keydown", closeOnEsc);
+      window.removeEventListener("mousedown", closeOnOutsideClick);
     };
   }, [open, onClose]);
 
@@ -124,12 +125,7 @@ const SocialMenuButton = ({ id, data, activeMenu, setActiveMenu }) => {
 };
 
 export const Contact = () => {
-  const location = useLocation();
   const [activeMenu, setActiveMenu] = useState(null);
-
-  const isMembersPage = location.pathname === "/members";
-  const isBlogsPage =
-    location.pathname === "/blogs" || location.pathname.startsWith("/blog/");
 
   const SocialButton = ({ href, label, bgColor, children }) => (
     <a

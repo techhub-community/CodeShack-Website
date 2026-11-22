@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import Team from "../../assets/Team.jpg";
-import { useNavigate } from "react-router-dom";
 import { ChromaGrid } from "../../assets/ChromaGrid";
 import { members } from "../../data/members";
 
 export const Members = () => {
-  const navigate = useNavigate();
   const gridContainerRef = useRef(null);
   const [gridHeight, setGridHeight] = useState("auto");
 

@@ -86,6 +86,7 @@ export const ChromaGrid = ({
 
       // radius adapts to container width
       dynamicRadius.current = Math.min(radius, width * 0.35);
+      el.style.setProperty("--r", `${dynamicRadius.current}px`);
 
       setX.current = gsap.quickSetter(el, "--x", "px");
       setY.current = gsap.quickSetter(el, "--y", "px");
@@ -168,7 +169,7 @@ export const ChromaGrid = ({
       ref={rootRef}
       className={`chroma-grid ${className}`}
       style={{
-        "--r": `${dynamicRadius.current}px`,
+        "--r": `${radius}px`,
         "--cols": columns,
         "--rows": rows,
         maxWidth: "100%",

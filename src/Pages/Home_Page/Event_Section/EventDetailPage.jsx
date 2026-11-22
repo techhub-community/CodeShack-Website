@@ -74,7 +74,7 @@ export const EventDetailPage = () => {
 
       return () => clearInterval(interval);
     }
-  }, [eventId]);
+  }, [eventId, hacknocturneImages.length]);
 
   // GSAP animation for winner cards
   useEffect(() => {
